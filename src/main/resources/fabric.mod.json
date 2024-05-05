@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "capyaddon",
+  "version": "${version}",
+  "name": "CapyAddon",
+  "description": "A utility meteor addon made by Capy",
+  "authors": [
+    "CapyKing10"
+  ],
+  "contact": {
+    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+  },
+  "icon": "assets/template/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "meteor": [
+      "com.capy.capyaddon.CapyAddon"
+    ]
+  },
+  "mixins": [
+    "addon-template.mixins.json"
+  ],
+  "custom": {
+    "meteor-client:color": "225,200,25"
+  },
+  "depends": {
+    "java": ">=17",
+    "minecraft": ">=${mc_version}",
+    "meteor-client": "*"
+  }
+}
