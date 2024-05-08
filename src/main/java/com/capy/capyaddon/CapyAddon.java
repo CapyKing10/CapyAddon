@@ -46,6 +46,6 @@ public class CapyAddon extends MeteorAddon {
 
     @Override
     public String getPackage() {
-        return "com.example.addon";
+        return "com.capy.capyaddon";
     }
 }
