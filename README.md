@@ -1,4 +1,4 @@
-<div align="centre">
+<div align="center">
     <img src="./src/main/resources/assets/template/icon.png" alt="Logo" width="360" height="360">
 
     ![Downloads](https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge)
