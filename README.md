@@ -2,7 +2,7 @@
 
 ![Downloads](https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total)
 
-<h1 align="center">CapyAddon</h1>
+# CapyAddon
 
 A utility meteor addon made by Capy
 
