@@ -1,4 +1,8 @@
-# CapyAddon
+![logo](./src/main/resources/assets/template/icon.png)
+
+![Downloads](https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total)
+
+<center># CapyAddon</center>
 A utility meteor addon made by Capy
 
 First time coding in java, so code might be messy
