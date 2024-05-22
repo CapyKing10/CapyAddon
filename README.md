@@ -1,7 +1,7 @@
 <div align="center">
     <img src="./src/main/resources/assets/template/icon.png" alt="Logo" width="360" height="360">
-
-    ![Downloads](https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge)
+    
+    <a><img src="https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge" alt="Downloads"/></a>
     <a href="https://dsc.gg/capyking10"><img src="https://img.shields.io/badge/CapyAddon_Support-Discord-Blue?style=for-the-badge" alt="Discord"/></a>
 </div>
 
