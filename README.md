@@ -1,7 +1,6 @@
 <img src="./src/main/resources/assets/template/icon.png" align="center" alt="Logo" width="360" height="360">
 
-![Downloads](https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total)
-
+<a img src="https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total" alt="Downloads"/></a>
 <a href="https://dsc.gg/capyking10" img src="https://img.shields.io/badge/CapyAddon_Support-Discord" alt="Discord"/></a>
 
 # CapyAddon
