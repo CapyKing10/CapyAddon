@@ -2,7 +2,8 @@
 
 ![Downloads](https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total)
 
-<center># CapyAddon</center>
+  <h1 align="center">CapyAddon</h1>
+
 A utility meteor addon made by Capy
 
 First time coding in java, so code might be messy
