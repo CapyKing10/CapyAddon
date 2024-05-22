@@ -1,8 +1,8 @@
-![logo](./src/main/resources/assets/template/icon.png)
+<img src="./src/main/resources/assets/template/icon.png" align="center" alt="Logo" width="360" height="360">
 
 ![Downloads](https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total)
 
-  <h1 align="center">CapyAddon</h1>
+<h1 align="center">CapyAddon</h1>
 
 A utility meteor addon made by Capy
 
