@@ -2,11 +2,12 @@
 
 <a><img src="https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge" alt="Downloads"/></a>
 <a href="https://dsc.gg/capyking10"><img src="https://img.shields.io/badge/CapyAddon_Support-Discord-Blue?style=for-the-badge" alt="Discord"/></a>
+![Version](https://img.shields.io/badge/Version-1.20.4-Blue?style=for-the-badge)
 
 
 # CapyAddon
 
-A 1.20.4 utility meteor addon made by me
+A utility meteor addon made by me
 
 First time coding in java, so code might be messy
 
