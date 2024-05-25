@@ -2,7 +2,7 @@
 
 <a><img src="https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge" alt="Downloads"/></a>
 
-![Version](https://img.shields.io/badge/any_text-you_like-blue)
+![Version](https://img.shields.io/badge/version-1.20.4-orange&style=for-the-badge)
 
 # CapyAddon
 
