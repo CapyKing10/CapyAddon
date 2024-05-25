@@ -21,7 +21,7 @@ public class leakCoordinates extends Command {
         builder.executes(context -> {
             if (Math.random() > 0.5) {
                 PlayerEntity player = MinecraftClient.getInstance().player;
-                String message = "my coordinates are X: " + Math.round(player.getX()) + " Y: " + Math.round(player.getY()) + " Z: " + Math.round(player.getZ());
+                String message = "my coordinates are X: " + Math.round(player.getX()) + " Y: " + Math.round(player.getY()) + " Z: " + Math.round(player.getZ()) + " in dimension: " + player.getWorld().getRegistryKey().getValue();
                 ChatUtils.sendPlayerMsg(message);
                 LogUtils.sendMessage(Formatting.WHITE + "your coordinates got leaked :(");
             } else {

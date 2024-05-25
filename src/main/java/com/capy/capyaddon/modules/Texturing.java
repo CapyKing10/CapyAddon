@@ -2,14 +2,18 @@ package com.capy.capyaddon.modules;
 
 import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.utils.LogUtils;
+import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
+import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -32,6 +36,7 @@ public class Texturing extends Module {
         .build()
     );
 
+    private int timer;
     ArrayList<Integer> slots = new ArrayList<>();
 
     @Override
@@ -52,23 +57,24 @@ public class Texturing extends Module {
                 }
             }
         }
+    }
 
-        // interval shit
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                if (!slots.isEmpty()) {
-                    int randomIndex = new Random().nextInt(slots.size());
-                    if (randomIndex > 9) {
-                        MinecraftClient.getInstance().player.getInventory().selectedSlot = 9;
-                    } else {
-                        MinecraftClient.getInstance().player.getInventory().selectedSlot = slots.get(randomIndex);
-                    }
+    @EventHandler
+    private void onTick(TickEvent.Post event) {
+        if (timer <= 0) {
+            if (!slots.isEmpty()) {
+                int randomIndex = new Random().nextInt(slots.size());
+                if (randomIndex > 9) {
+                    MinecraftClient.getInstance().player.getInventory().selectedSlot = 9;
+                } else {
+                    MinecraftClient.getInstance().player.getInventory().selectedSlot = slots.get(randomIndex);
                 }
             }
-        };
-        timer.scheduleAtFixedRate(task, 0, switchInterval.get());
+            int delay = switchInterval.get() / 50;
+            timer = delay;
+        } else {
+            timer--;
+        }
     }
 
     public void onDeactivate() {

@@ -2,6 +2,7 @@ package com.capy.capyaddon;
 
 import com.capy.capyaddon.commands.discord;
 import com.capy.capyaddon.commands.leakCoordinates;
+import com.capy.capyaddon.hud.ObscufatedCoords;
 import com.capy.capyaddon.hud.fps;
 import com.capy.capyaddon.hud.watermark;
 import com.capy.capyaddon.modules.*;
@@ -29,6 +30,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new ShulkerDrop());
         Modules.get().add(new EntityFly());
         Modules.get().add(new CatSpam());
+        Modules.get().add(new AutoVertical());
 
         // Commands
         Commands.add(new discord());
@@ -37,6 +39,7 @@ public class CapyAddon extends MeteorAddon {
         // HUD
         Hud.get().register(watermark.INFO);
         Hud.get().register(fps.INFO);
+        Hud.get().register(ObscufatedCoords.INFO);
     }
 
     @Override
