@@ -21,9 +21,11 @@ You can ofcourse always build the jar yourself using the `gradlew.bat` file
     - ShulkerDrop
     - EntityFly
     - CatSpam
+    - Auto Vertical
 - **Commands**
    - discord
    - gamble-your-base
 - **Hud**
    - fps
    - watermark
+   - Obscufated Coords
