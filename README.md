@@ -1,8 +1,8 @@
 <img src="./src/main/resources/assets/template/icon.png" alt="Logo" width="360" height="360">
 
 <a><img src="https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge" alt="Downloads"/></a>
-<a href="https://dsc.gg/capyking10"><img src="https://img.shields.io/badge/CapyAddon_Support-Discord?style=for-the-badge" alt="Discord"/></a>
-![Version](https://img.shields.io/badge/Version-1.20.4?style=for-the-badge)
+<a href="https://dsc.gg/capyking10"><img src="https://img.shields.io/badge/CapyAddon_Support-Discord-#ed9a3b?style=for-the-badge" alt="Discord"/></a>
+![Version](https://img.shields.io/badge/Version-1.20.4-#ed9a3b?style=for-the-badge)
 
 
 # CapyAddon
