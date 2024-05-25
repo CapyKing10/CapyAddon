@@ -8,7 +8,7 @@
 
 ![Version](https://img.shields.io/badge/Version-1.20.4-ed9a3b?style=for-the-badge)
 
-# CapyAddon
+# CapyAddon a
 
 A utility meteor addon made by me
 
