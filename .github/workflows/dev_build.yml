@@ -10,6 +10,7 @@ jobs:
         with:
           java-version: 17
           distribution: adopt
+      - run: chmod +x gradlew
       - name: Build
         run: ./gradlew build
       - name: Release
