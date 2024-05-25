@@ -6,7 +6,7 @@
 
 # CapyAddon
 
-A utility meteor addon made by me
+A 1.20.4 utility meteor addon made by me
 
 First time coding in java, so code might be messy
 
