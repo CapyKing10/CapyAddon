@@ -1,7 +1,7 @@
 <img src="./src/main/resources/assets/template/icon.png" alt="Logo" width="360" height="360">
 
 <a><img src="https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge" alt="Downloads"/></a>
-<a><img src="https://img.shields.io/badge/Version?style=for-the-badge&color=%23ed9a3b" alt="Version"/></a>
+<a><img src="https://img.shields.io/badge/Version-1.20.4" alt="Version"/></a>
 
 # CapyAddon
 
