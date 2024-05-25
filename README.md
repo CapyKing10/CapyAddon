@@ -1,7 +1,7 @@
 <img src="./src/main/resources/assets/template/icon.png" alt="Logo" width="360" height="360">
 
 <a><img src="https://img.shields.io/github/downloads/CapyKing10/CapyAddon/total?style=for-the-badge" alt="Downloads"/></a>
-[![Discord](https://img.shields.io/discord/1154497694597910620?color=blue&label=Discord&logo=Discord&style=for-the-badge)](https://dsc.gg/capyking10)
+[![Discord](https://img.shields.io/discord?color=blue&label=Discord&logo=Discord&style=for-the-badge)](https://dsc.gg/capyking10)
 ![Static Badge](https://img.shields.io/badge/version?style=for-the-badge)
 
 # CapyAddon
