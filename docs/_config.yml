@@ -1,0 +1,5 @@
+title: CapyAddon
+description: CapyAddon's Website
+baseurl: "/reponame"
+url: "https://capyking10.github.io" # the base hostname & protocol for your site
+permalink: /:name/
