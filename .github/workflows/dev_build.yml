@@ -1,8 +1,9 @@
 name: Publish Development Build
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 permissions:
-  contents: write  # Grant write permission to contents for creating or updating tags
+  contents: write
 
 jobs:
   build:
