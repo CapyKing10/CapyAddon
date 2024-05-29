@@ -15,7 +15,7 @@ jobs:
           java-version: 21
           distribution: adopt
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew.bat
       - name: Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
