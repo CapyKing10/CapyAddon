@@ -1,38 +1,38 @@
 name: Publish Development Build
 on:
-  workflow_dispatch:
+    workflow_dispatch:
 
 permissions:
-  contents: write
+    contents: write
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
 
-      - name: Wrapper Validation
-        uses: gradle/actions/wrapper-validation@v3
+            - name: Wrapper Validation
+              uses: gradle/actions/wrapper-validation@v3
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: 17
-          distribution: adopt
+            - name: Set up Java
+              uses: actions/setup-java@v4
+              with:
+                  java-version: 17
+                  distribution: adopt
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+            - name: Make gradlew executable
+              run: chmod +x ./gradlew
 
-      - name: Build with Gradle
-        run: ./gradlew build
+            - name: Build with Gradle
+              run: ./gradlew build
 
-      - name: Release
-        uses: marvinpinto/action-automatic-releases@latest
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          automatic_release_tag: latest
-          prerelease: true
-          title: Dev Build
-          files: |
-            ./build/libs/*.jar
+            - name: Release
+              uses: marvinpinto/action-automatic-releases@latest
+              with:
+                  repo_token: ${{ secrets.GITHUB_TOKEN }}
+                  automatic_release_tag: latest
+                  prerelease: true
+                  title: Dev Build
+                  files: |
+                      ./build/libs/*.jar
