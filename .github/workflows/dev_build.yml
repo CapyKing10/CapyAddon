@@ -1,4 +1,4 @@
-name: Publish Development Build
+ame: Publish Development Build
 on: push
 
 jobs:
