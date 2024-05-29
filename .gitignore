@@ -31,7 +31,3 @@ bin/
 # fabric
 
 run/
-
-# .github
-
-./.github/workflows/dev_build.yml
