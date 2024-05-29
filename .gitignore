@@ -34,4 +34,4 @@ run/
 
 # .github
 
-./.github/workflows/dev_build.yml
+.github/workflows/dev_build.yml
