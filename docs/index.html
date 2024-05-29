@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ page.title }} - {{ site.title }}</title>
+    <title>{{ site.title }}</title>
     <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/styles.css">
 </head>
 <body>
@@ -11,12 +11,13 @@
             <ul>
                 <li><a href="{{ site.baseurl }}/">Home</a></li>
                 <li><a href="{{ site.baseurl }}/about/">About</a></li>
-                <li><a href="{{ site.baseurl }}/contact/">Contact</a></li>
+                <li><a href="{{ site.baseurl }}/main/">Main</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        {{ content }}
+        <h1>Welcome to My Project</h1>
+        <img src="{{ site.baseurl }}/assets/images/my-image.jpg" alt="My Image">
     </main>
 </body>
 </html>
