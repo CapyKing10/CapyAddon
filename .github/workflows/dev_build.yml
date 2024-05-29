@@ -17,7 +17,7 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Build with Gradle
-        run: ./gradlew.bat
+        run: ./gradlew build
       - name: Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
