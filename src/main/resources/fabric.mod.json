@@ -10,7 +10,7 @@
   "contact": {
     "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
   },
-  "icon": "assets/template/icon.png",
+  "icon": "assets/capyaddon/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
@@ -18,7 +18,7 @@
     ]
   },
   "mixins": [
-    "addon-template.mixins.json"
+    "capyaddon.mixins.json"
   ],
   "custom": {
     "meteor-client:color": "225,200,25"
