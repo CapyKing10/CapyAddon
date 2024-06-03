@@ -8,7 +8,7 @@
     "CapyKing10"
   ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/CapyKing10/CapyAddon"
   },
   "icon": "assets/capyaddon/icon.png",
   "environment": "client",
