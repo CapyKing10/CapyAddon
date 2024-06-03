@@ -26,6 +26,7 @@ You can ofcourse always build the jar yourself using the `gradlew.bat` file
     - EntityFly
     - CatSpam
     - Auto Vertical
+    - ChunkDupeTimer
 - **Commands**
    - discord
    - gamble-your-base
