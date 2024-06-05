@@ -18,6 +18,10 @@ New releases will get published after a few new features are added
 
 You can ofcourse always build the jar yourself using the `gradlew.bat` file
 
+# Contributors
+![Capy](https://avatars.githubusercontent.com/CapyKing10)
+Capy
+
 # Feature List:
 - **Modules**
     - Texturing
