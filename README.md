@@ -20,7 +20,7 @@ You can ofcourse always build the jar yourself using the `gradlew.bat` file
 
 # Contributors
 <img src="https://avatars.githubusercontent.com/CapyKing10" alt="Capy" width="20" height="20">
-Capy
+<a>CapyKing10</a>
 
 # Feature List:
 - **Modules**
