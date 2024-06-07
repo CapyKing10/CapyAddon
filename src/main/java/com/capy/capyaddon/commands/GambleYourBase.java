@@ -11,8 +11,8 @@ import net.minecraft.util.Formatting;
 
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
-public class leakCoordinates extends Command {
-    public leakCoordinates() {
+public class GambleYourBase extends Command {
+    public GambleYourBase() {
         super("gamble-your-base", "50/50 chance that your base coordinates get leaked!");
     }
 

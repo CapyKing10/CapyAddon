@@ -1,6 +1,7 @@
 package com.capy.capyaddon.modules;
 
 import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.utils.LogUtils;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
@@ -23,7 +24,7 @@ public class ClientPrefix extends Module {
     );
 
     public ClientPrefix() {
-        super(CapyAddon.CATEGORY, "prefix-modifier", "Modifies the client's prefix.");
+        super(CapyAddon.CATEGORY, "PrefixModifier", "Modifies the client's prefix.");
     }
 
     public void onActivate() {

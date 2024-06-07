@@ -1,7 +1,7 @@
 package com.capy.capyaddon;
 
-import com.capy.capyaddon.commands.discord;
-import com.capy.capyaddon.commands.leakCoordinates;
+import com.capy.capyaddon.commands.Discord;
+import com.capy.capyaddon.commands.GambleYourBase;
 import com.capy.capyaddon.hud.ObscufatedCoords;
 import com.capy.capyaddon.hud.fps;
 import com.capy.capyaddon.hud.watermark;
@@ -36,8 +36,8 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new PopCounter());
 
         // Commands
-        Commands.add(new discord());
-        Commands.add(new leakCoordinates());
+        Commands.add(new Discord());
+        Commands.add(new GambleYourBase());
 
         // HUD
         Hud.get().register(watermark.INFO);

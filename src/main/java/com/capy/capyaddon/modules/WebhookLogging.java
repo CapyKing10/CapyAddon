@@ -28,7 +28,7 @@ public class WebhookLogging extends Module {
     public SettingGroup sgOptions = settings.createGroup("Options");
 
     public WebhookLogging() {
-        super(CapyAddon.CATEGORY, "WebhookLogger", "Log certaint things to a discord webhook");
+        super(CapyAddon.CATEGORY, "WebhookLogger", "Log certaint things to a Discord webhook");
     }
 
     private final Setting<String> url = sgGeneral.add(new StringSetting.Builder()

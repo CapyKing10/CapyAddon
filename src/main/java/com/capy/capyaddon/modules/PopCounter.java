@@ -70,7 +70,7 @@ public class PopCounter extends Module {
         .name("Track Kills")
         .description("track your streak of pops and kills")
         .visible(trackStreak::get)
-        .defaultValue(true)
+        .defaultValue(false)
         .build()
     );
 
@@ -78,7 +78,7 @@ public class PopCounter extends Module {
         .name("Reset Streak On Death")
         .description("reset your streak when you die")
         .visible(trackStreak::get)
-        .defaultValue(true)
+        .defaultValue(false)
         .build()
     );
 
