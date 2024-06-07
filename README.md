@@ -20,13 +20,14 @@ You can ofcourse always build the jar yourself using the `gradlew.bat` file
 
 # Feature List:
 - **Modules**
-    - Texturing
-    - WebhookLogging
-    - ShulkerDrop
-    - EntityFly
-    - CatSpam
-    - Auto Vertical
-    - ChunkDupeTimer
+  - Auto Vertical
+  - CatSpam
+  - ChunkDupeTimer
+  - ClientPrefix
+  - EntityFly
+  - ShulkerDrop
+  - Texturing
+  - WebhookLogging
 - **Commands**
    - discord
    - gamble-your-base
