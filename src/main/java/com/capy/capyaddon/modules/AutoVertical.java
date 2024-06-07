@@ -13,7 +13,6 @@ public class AutoVertical extends Module {
     }
 
     public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "AutoVertial" + Formatting.GREEN + " On");
         if (Modules.get().get(ElytraFly.class).isActive()) {
             mc.options.jumpKey.setPressed(true);
         } else {
@@ -24,6 +23,5 @@ public class AutoVertical extends Module {
 
     public void onDeactivate() {
         mc.options.jumpKey.setPressed(false);
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "AutoVertial" + Formatting.RED + " Off");
     }
 }

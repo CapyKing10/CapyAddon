@@ -20,13 +20,4 @@ public class Template extends Module {
     public Template() {
         super(CapyAddon.CATEGORY, "Template", "cool ass template cuz yeah");
     }
-
-    @Override
-    public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "Template" + Formatting.GREEN + " On");
-    }
-
-    public void onDeactivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "Template" + Formatting.RED + " Off");
-    }
 }

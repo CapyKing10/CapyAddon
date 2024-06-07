@@ -17,7 +17,6 @@ public class ShulkerDrop extends Module {
 
     @Override
     public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "ShulkerDrop" + Formatting.GREEN + " On");
         Inventory inventory = MinecraftClient.getInstance().player.getInventory();
         PlayerEntity player = MinecraftClient.getInstance().player;
         for (int i = 0; i < inventory.size(); i++) {
@@ -32,9 +31,5 @@ public class ShulkerDrop extends Module {
     private boolean isShulker(ItemStack itemStack) {
         String translationKey = itemStack.getTranslationKey();
         return translationKey.contains("shulker_box");
-    }
-
-    public void onDeactivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "ShulkerDrop" + Formatting.RED + " Off");
     }
 }

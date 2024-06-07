@@ -68,7 +68,6 @@ public class CatSpam extends Module {
 
     @Override
     public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "CatSpam" + Formatting.GREEN + " On");
         timer = delay.get();
     }
 
@@ -96,9 +95,5 @@ public class CatSpam extends Module {
         } else {
             timer--;
         }
-    }
-
-    public void onDeactivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "CatSpam" + Formatting.RED + " Off");
     }
 }

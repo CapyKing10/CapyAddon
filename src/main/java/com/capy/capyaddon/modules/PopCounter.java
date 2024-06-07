@@ -88,14 +88,9 @@ public class PopCounter extends Module {
 
     @Override
     public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "PopCounter" + Formatting.GREEN + " On");
         popCounter = 0;
         streakKills = 0;
         streakPops = 0;
-    }
-
-    public void onDeactivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "PopCounter" + Formatting.RED + " Off");
     }
 
     @EventHandler

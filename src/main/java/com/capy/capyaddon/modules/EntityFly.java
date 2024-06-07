@@ -63,13 +63,4 @@ public class EntityFly extends Module {
             ((IVec3d) event.entity.getVelocity()).set(velX, velY, velZ);
         }
     }
-
-    @Override
-    public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "EntityFly" + Formatting.GREEN + " On");
-    }
-
-    public void onDeactivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "EntityFly" + Formatting.RED + " Off");
-    }
 }

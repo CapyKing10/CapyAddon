@@ -71,7 +71,6 @@ public class WebhookLogging extends Module {
 
     @Override
     public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "WebhookLogger" + Formatting.GREEN + " On");
         String webhookURL = url.get();
         if (!webhookURL.isEmpty()) {
             hook = new DiscordWebhook(webhookURL);
@@ -79,10 +78,6 @@ public class WebhookLogging extends Module {
             LogUtils.sendMessage(Formatting.WHITE + "Invalid webhook URL...");
             this.toggle();
         }
-    }
-
-    public void onDeactivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "WebhookLogger" + Formatting.RED + " Off");
     }
 
     @EventHandler

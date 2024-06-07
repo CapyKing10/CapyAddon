@@ -41,7 +41,6 @@ public class Texturing extends Module {
 
     @Override
     public void onActivate() {
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "Texturing" + Formatting.GREEN + " On");
 
         // get all blocks in the hotbar
         for (int i = 0; i < 10; i++) {
@@ -79,6 +78,5 @@ public class Texturing extends Module {
 
     public void onDeactivate() {
         slots.clear();
-        LogUtils.sendMessage(Formatting.WHITE + "Turned the module called " + Formatting.GOLD + "Texturing" + Formatting.RED + " Off");
     }
 }
