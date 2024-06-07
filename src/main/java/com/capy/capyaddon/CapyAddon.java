@@ -33,6 +33,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new AutoVertical());
         Modules.get().add(new ChunkDupeTimer());
         Modules.get().add(new ClientPrefix());
+        Modules.get().add(new PopCounter());
 
         // Commands
         Commands.add(new discord());
