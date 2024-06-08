@@ -1,12 +1,42 @@
 package com.capy.capyaddon.utils;
 
+import meteordevelopment.meteorclient.mixininterface.IChatHud;
+import meteordevelopment.meteorclient.systems.Systems;
+import meteordevelopment.meteorclient.systems.config.Config;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 public class LogUtils {
-    public static void sendMessage(String message) {
-        String prefix = Formatting.GRAY + "[" + Formatting.GOLD + "Capy" + Formatting.YELLOW + "Addon" + Formatting.GRAY + "]";
-        MinecraftClient.getInstance().inGameHud.getChatHud().addMessage(Text.of(prefix + " " + message));
+    public static void sendMessage(String msg) {
+        int id = 93;
+        if (mc.world == null) return;
+
+        MutableText message = Text.empty();
+        message.append(getPrefix());
+        message.append(" ");
+        message.append(msg);
+
+        if (!Config.get().deleteChatFeedback.get()) id = 0;
+
+        ((IChatHud) mc.inGameHud.getChatHud()).meteor$add(message, id);
+    }
+
+    public static Text getPrefix() {
+        MutableText name1 = Text.literal("Capy");
+        MutableText name2 = Text.literal("Addon");
+        MutableText prefix = Text.literal("");
+        name1.setStyle(name1.getStyle().withFormatting(Formatting.GOLD));
+        name2.setStyle(name2.getStyle().withFormatting(Formatting.YELLOW));
+        prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY))
+            .append(Text.literal("["))
+            .append(name1)
+            .append(name2)
+            .append(Text.literal("] "));
+        return prefix;
     }
 }
