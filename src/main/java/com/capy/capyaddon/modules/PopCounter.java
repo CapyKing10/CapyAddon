@@ -41,6 +41,13 @@ public class PopCounter extends Module {
         .build()
     );
 
+    private final Setting<Boolean> ignoreSelf = sgLog.add(new BoolSetting.Builder()
+        .name("Ignore Self")
+        .description("ignore yourself when popping")
+        .defaultValue(true)
+        .build()
+    );
+
     private final Setting<Boolean> includeUsername = sgLog.add(new BoolSetting.Builder()
         .name("Include Enemy Usernames")
         .description("include the username of the player that you popped")
@@ -102,6 +109,7 @@ public class PopCounter extends Module {
 
         popCounter++;
         if (logToChat.get()) {
+            if (ignoreSelf.get()) { if (entity.getName().getString().equals(mc.player.getName().getString())) return; }
             if (includeUsername.get()) {
                 LogUtils.sendMessage("You popped " + entity.getName().getString() + ", total pops: " + popCounter);
             } else {
@@ -110,6 +118,7 @@ public class PopCounter extends Module {
         }
 
         if (trackStreak.get()) {
+            if (ignoreSelf.get()) { if (entity.getName().getString().equals(mc.player.getName().getString())) return; }
             streakPops++;
             if (includeUsername.get()) {
                 LogUtils.sendMessage("You popped " + entity.getName().getString() + ", total pops on your streak: " + popCounter);
@@ -126,6 +135,7 @@ public class PopCounter extends Module {
         if (!(entity instanceof PlayerEntity)) return;
 
         if (((PlayerEntity) entity).getHealth() <= 0) {
+            if (ignoreSelf.get()) { if (entity.getName().getString().equals(mc.player.getName().getString())) return; }
             if (trackKills.get()) streakKills++;
             if (logToChat.get()) {
                 if (includeUsername.get()) {

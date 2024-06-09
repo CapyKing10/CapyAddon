@@ -2,12 +2,13 @@ package com.capy.capyaddon.utils;
 
 import meteordevelopment.meteorclient.mixininterface.IChatHud;
 import meteordevelopment.meteorclient.systems.config.Config;
+import meteordevelopment.meteorclient.utils.render.MeteorToast;
+import net.minecraft.item.Items;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
-
 public class LogUtils {
     public static void sendMessage(String msg) {
         int id = 93;
@@ -21,6 +22,10 @@ public class LogUtils {
         if (!Config.get().deleteChatFeedback.get()) id = 0;
 
         ((IChatHud) mc.inGameHud.getChatHud()).meteor$add(message, id);
+    }
+
+    public static void sendNotification(String message) {
+        mc.getToastManager().add(new MeteorToast(Items.BROWN_STAINED_GLASS_PANE, message, message, 1000));
     }
 
     public static Text getPrefix() {

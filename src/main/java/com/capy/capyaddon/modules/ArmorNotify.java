@@ -20,6 +20,13 @@ import java.util.Set;
 public class ArmorNotify extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
+    private final Setting<Modes> logMode = sgGeneral.add(new EnumSetting.Builder<Modes>()
+        .name("Log Mode")
+        .description("how the module should log")
+        .defaultValue(Modes.chat)
+        .build()
+    );
+
     private final Setting<Integer> limit = sgGeneral.add(new IntSetting.Builder()
         .name("Durability Limit")
         .description("The Durability it should notify you on.")
@@ -51,8 +58,9 @@ public class ArmorNotify extends Module {
                 }
 
                 if (currentDurability <= limit.get()) {
-                    LogUtils.sendMessage(Formatting.RED + "[!] " + Formatting.WHITE + "Your " + armorItem.getName().getString() + " is about to run out of durability " + Formatting.GRAY + "(" + currentDurability + ")");
-                    logged = true; // Mark as logged
+                    if (logMode.get() == Modes.chat) LogUtils.sendMessage(Formatting.RED + "[!] " + Formatting.WHITE + "Your " + armorItem.getName().getString() + " is about to run out of durability " + Formatting.GRAY + "(" + currentDurability + ")");
+                    if (logMode.get() == Modes.notification) LogUtils.sendNotification(armorItem.getName().getString() + " low dur " + currentDurability);
+                    logged = true;
                 } else {
                     logged = false;
                 }
@@ -60,6 +68,11 @@ public class ArmorNotify extends Module {
                 dur = currentDurability;
             }
         }
+    }
+
+    public enum Modes {
+        chat,
+        notification
     }
 
 }
