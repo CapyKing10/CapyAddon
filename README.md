@@ -19,19 +19,21 @@ New releases will get published after a few new features are added
 You can ofcourse always build the jar yourself using the `gradlew.bat` file
 
 # Feature List:
-- **Modules**
-  - Auto Vertical
-  - CatSpam
-  - ChunkDupeTimer
-  - ClientPrefix
-  - EntityFly
-  - ShulkerDrop
-  - Texturing
-  - WebhookLogging
-- **Commands**
-   - discord
-   - gamble-your-base
-- **Hud**
-   - fps
-   - watermark
-   - Obscufated Coords
+- Modules:
+    - Texturing
+    - WebhookLogging
+    - ShulkerDrop
+    - EntityFly
+    - CatSpam
+    - AutoVertical
+    - ChunkDupeTimer
+    - ClientPrefix
+    - Popcounter
+    - ArmorNotify
+- Commands:
+    - Discord
+    - Gamble Your Base
+- Hud:
+    - Watermark
+    - Obscufated Coords
+    - Fps
