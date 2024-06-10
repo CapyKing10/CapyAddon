@@ -15,6 +15,9 @@ import meteordevelopment.meteorclient.systems.modules.Modules;
 import org.slf4j.Logger;
 
 public class CapyAddon extends MeteorAddon {
+    public static final String NAME = "CapyAddon";
+    public static final String VERSION = "1.0.3";
+
     public static final Logger LOG = LogUtils.getLogger();
     public static final Category CATEGORY = new Category("CapyAddon");
     public static final HudGroup HUD_GROUP = new HudGroup("CapyAddon");
@@ -34,6 +37,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new ClientPrefix());
         Modules.get().add(new PopCounter());
         Modules.get().add(new ArmorNotify());
+        Modules.get().add(new BackupCaller());
 
         // Commands
         Commands.add(new Discord());
