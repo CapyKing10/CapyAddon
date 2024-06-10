@@ -10,13 +10,21 @@
 
 # CapyAddon
 
-A utility meteor addon made by me
+A utility / bad pvp meteor addon.
 
-First time coding in java, so code might be messy
+New releases will get published after a few new features are added.
 
-New releases will get published after a few new features are added
+# Custom Version
 
-You can ofcourse always build the jar yourself using the `gradlew.bat` file
+First go to [fabric.mod.json](./src/main/recources/fabric.mod.json).
+
+Then change the version field on the 4th line to the version you want.
+
+Secondly go to [gradle.properties](./gradle.properties) and click on the link on the 3rd line of the file.
+
+Select the version you want in the dropdown and copy the first 3 and paste that into the Mod Properties field.
+
+Then change the meteor_version to the corrosponding meteor version.
 
 # Feature List:
 - Modules:
