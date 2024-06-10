@@ -26,6 +26,8 @@ Select the version you want in the dropdown and copy the first 3 and paste that 
 
 Then change the meteor_version to the corrosponding meteor version.
 
+After that run the gradlew.bat file.
+
 # Feature List:
 - Modules:
     - Texturing
