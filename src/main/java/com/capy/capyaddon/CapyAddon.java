@@ -32,6 +32,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new WebhookLogging());
         Modules.get().add(new ShulkerDrop());
         Modules.get().add(new AutoMeow());
+        Modules.get().add(new backyp());
         Modules.get().add(new EntityFly());
         Modules.get().add(new CatSpam());
         Modules.get().add(new AutoVertical());
