@@ -120,13 +120,13 @@ public class WebhookLogging extends Module {
     private void onRenderPlayer(EntityAddedEvent event) {
         if (logRenderDistance.get()) {
             if (event.entity.isPlayer()) {
-                String playerName = event.entity.getName().getLiteralString();
+                String playerName = event.entity.getName().getString();
 
                 assert mc.player != null;
                 assert playerName != null;
 
                 if (shouldIgnoreSelf.get()) {
-                    if (playerName.equals(mc.player.getName().getLiteralString())) return;
+                    if (playerName.equals(mc.player.getName().getString())) return;
                 }
 
                 double x = event.entity.getX();
@@ -134,7 +134,7 @@ public class WebhookLogging extends Module {
                 double z = event.entity.getZ();
                 String pos = "X: " + x + " Y: " + y + " Z: " + z;
                 hook.addEmbed(new DiscordWebhook.EmbedObject()
-                    .setTitle("Player: " + event.entity.getName().getLiteralString() + " Entered RenderDistance")
+                    .setTitle("Player: " + event.entity.getName().getString() + " Entered RenderDistance")
                     .setDescription(pos)
                     .setColor(Color.RED)
                 );

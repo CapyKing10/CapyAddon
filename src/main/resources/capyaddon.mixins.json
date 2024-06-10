@@ -3,7 +3,8 @@
   "package": "com.capy.capyaddon.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "MultiplayerScreenMixin"
+    "MultiplayerScreenMixin",
+    "MinecraftWindowNameMixin"
   ],
   "injectors": {
     "defaultRequire": 1
