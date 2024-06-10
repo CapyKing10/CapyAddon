@@ -16,7 +16,7 @@ public class Welcomer extends HudElement {
     public SettingGroup sgGeneral = settings.getDefaultGroup();
     public Setting<String> clientname = sgGeneral.add(new StringSetting.Builder()
         .name("Customtext")
-        .description("nottibop")
+        .description("nottibop (deos not work YET)")
         .defaultValue("CappyAddon")
         .build()
     );
