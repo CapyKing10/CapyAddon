@@ -14,13 +14,17 @@ import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import org.slf4j.Logger;
 
+import static meteordevelopment.meteorclient.MeteorClient.mc;
+
 public class CapyAddon extends MeteorAddon {
+
     public static final Logger LOG = LogUtils.getLogger();
     public static final Category CATEGORY = new Category("CapyAddon");
     public static final HudGroup HUD_GROUP = new HudGroup("CapyAddon");
 
     @Override
     public void onInitialize() {
+        mc.getWindow().setTitle("CapyAddon Current FPS: " + mc.getCurrentFps());
         LOG.info("Initializing CapyAddon");
 
         // Modules
