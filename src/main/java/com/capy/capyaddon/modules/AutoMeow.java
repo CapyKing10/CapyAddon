@@ -6,7 +6,7 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 
 public class AutoMeow extends Module {
     public AutoMeow() {
-        super(CapyAddon.CATEGORY, "Auto Vertical", "Fuck you advik (elytra fly's you to the moon)");
+        super(CapyAddon.CATEGORY, "Auto Meow", "Meow :3");
     }
     @Override
     public void onActivate(){
