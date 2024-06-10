@@ -7,6 +7,7 @@ import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
+import meteordevelopment.orbit.EventHandler;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -28,17 +29,21 @@ public class ClientPrefix extends Module {
     }
 
     public void onActivate() {
-        if (global.get()) {
-            ChatUtils.registerCustomPrefix("meteordevelopment.meteorclient", this::getPrefix);
-            ChatUtils.registerCustomPrefix("com.capy.capyaddon", this::getPrefix);
-        } else {
-            ChatUtils.registerCustomPrefix("com.capy.capyaddon", this::getPrefix);
-        }
+        ChatUtils.registerCustomPrefix("com.capy.capyaddon", this::getPrefix);
     }
 
     public void onDeactivate() {
         ChatUtils.unregisterCustomPrefix("com.capy.capyaddon");
         ChatUtils.registerCustomPrefix("meteordevelopment.meteorclient", this::getPrefix);
+    }
+
+    @EventHandler
+    public void onTick() {
+        if (global.get()) {
+            ChatUtils.registerCustomPrefix("meteordevelopment.meteorclient", this::getPrefix);
+        } else {
+            ChatUtils.unregisterCustomPrefix("meteordevelopment.meteorclient");
+        }
     }
 
     public Text getPrefix() {
