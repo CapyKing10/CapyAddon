@@ -3,6 +3,7 @@ package com.capy.capyaddon;
 import com.capy.capyaddon.commands.Discord;
 import com.capy.capyaddon.commands.GambleYourBase;
 import com.capy.capyaddon.hud.ObscufatedCoords;
+import com.capy.capyaddon.hud.Welcomer;
 import com.capy.capyaddon.hud.watermark;
 import com.capy.capyaddon.modules.*;
 import com.mojang.logging.LogUtils;
@@ -48,6 +49,7 @@ public class CapyAddon extends MeteorAddon {
         Commands.add(new GambleYourBase());
 
         // HUD
+        Hud.get().register(Welcomer.INFO);
         Hud.get().register(watermark.INFO);
         Hud.get().register(ObscufatedCoords.INFO);
     }
