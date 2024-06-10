@@ -11,6 +11,6 @@ public class AutoMeow extends Module {
     @Override
     public void onActivate(){
         ChatUtils.sendPlayerMsg("Meow");
-        // need to figure out what this is called in meteor terms this.disable()
+        // need to figure out what this is called in meteor terms this.disable() prob gonna scanvage ur code to find it
     }
 }
