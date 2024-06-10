@@ -14,7 +14,6 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class Welcomer extends HudElement {
     public static final HudElementInfo<Welcomer> INFO = new HudElementInfo<>(CapyAddon.HUD_GROUP, "Welcomer", "Welcome senpai", Welcomer::new);
     public SettingGroup sgGeneral = settings.getDefaultGroup();
-
     public Setting<String> clientname = sgGeneral.add(new StringSetting.Builder()
         .name("Customtext")
         .description("nottibop")
