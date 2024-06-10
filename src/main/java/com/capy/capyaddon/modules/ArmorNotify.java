@@ -2,7 +2,6 @@ package com.capy.capyaddon.modules;
 
 import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.utils.LogUtils;
-import meteordevelopment.meteorclient.events.entity.DamageEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.IntSetting;
@@ -13,9 +12,6 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class ArmorNotify extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();

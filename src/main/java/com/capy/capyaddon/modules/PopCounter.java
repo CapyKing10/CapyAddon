@@ -14,7 +14,6 @@ import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
-import net.minecraft.util.Formatting;
 
 /*
 *

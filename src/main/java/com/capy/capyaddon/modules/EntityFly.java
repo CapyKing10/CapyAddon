@@ -1,7 +1,6 @@
 package com.capy.capyaddon.modules;
 
 import com.capy.capyaddon.CapyAddon;
-import com.capy.capyaddon.utils.LogUtils;
 import meteordevelopment.meteorclient.events.entity.LivingEntityMoveEvent;
 import meteordevelopment.meteorclient.mixininterface.IVec3d;
 import meteordevelopment.meteorclient.settings.DoubleSetting;
@@ -10,7 +9,6 @@ import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.util.Formatting;
 import net.minecraft.util.math.Vec3d;
 
 public class EntityFly extends Module {

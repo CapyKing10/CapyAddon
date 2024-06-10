@@ -5,7 +5,6 @@ import com.capy.capyaddon.utils.LogUtils;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import meteordevelopment.meteorclient.systems.modules.movement.elytrafly.ElytraFly;
-import net.minecraft.util.Formatting;
 
 public class AutoVertical extends Module {
     public AutoVertical() {

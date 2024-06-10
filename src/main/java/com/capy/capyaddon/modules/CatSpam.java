@@ -1,7 +1,6 @@
 package com.capy.capyaddon.modules;
 
 import com.capy.capyaddon.CapyAddon;
-import com.capy.capyaddon.utils.LogUtils;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
 import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
@@ -13,7 +12,6 @@ import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
-import net.minecraft.util.Formatting;
 import org.apache.commons.lang3.RandomStringUtils;
 
 public class CatSpam extends Module {
