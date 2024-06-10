@@ -12,6 +12,6 @@ public class BackupCaller extends Module {
     @Override
     public void onActivate() {
         assert mc.player != null;
-        ChatUtils.sendPlayerMsg("I Need Backup " + mc.player.getX + mc.player.getY() + " " + mc.player.getZ());
+        ChatUtils.sendPlayerMsg("I Need Backup " + mc.player.getX() + " " + mc.player.getZ());
     }
 }
