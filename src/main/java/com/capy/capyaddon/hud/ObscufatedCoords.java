@@ -32,6 +32,7 @@ public class ObscufatedCoords extends HudElement {
     public void render(HudRenderer renderer) {
         PlayerEntity player = MinecraftClient.getInstance().player;
 
+        if (player == null) return;
         double spoofedX = Math.round(player.getX() * (Math.random() * multiplier.get()));
         double spoofedY = Math.round(player.getY() * (Math.random() * multiplier.get()));
         double spoofedZ = Math.round(player.getZ() * (Math.random() * multiplier.get()));
