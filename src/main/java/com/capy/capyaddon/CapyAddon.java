@@ -17,6 +17,8 @@ import org.slf4j.Logger;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class CapyAddon extends MeteorAddon {
+    public static final String NAME = "CapyAddon";
+    public static final String VERSION = "1.0.2";
 
     public static final Logger LOG = LogUtils.getLogger();
     public static final Category CATEGORY = new Category("CapyAddon");
