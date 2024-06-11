@@ -40,7 +40,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new PopCounter());
         Modules.get().add(new ArmorNotify());
         Modules.get().add(new BackupCaller());
-
+        Modules.get().add(new AntiPlayerSwing());
         // Commands
         Commands.add(new Discord());
         Commands.add(new GambleYourBase());
