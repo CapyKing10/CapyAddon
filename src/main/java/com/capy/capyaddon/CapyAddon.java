@@ -2,6 +2,7 @@ package com.capy.capyaddon;
 
 import com.capy.capyaddon.commands.Discord;
 import com.capy.capyaddon.commands.GambleYourBase;
+import com.capy.capyaddon.commands.stats;
 import com.capy.capyaddon.hud.Welcomer;
 import com.capy.capyaddon.hud.ObscufatedCoords;
 import com.capy.capyaddon.hud.fps;
@@ -41,9 +42,11 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new ArmorNotify());
         Modules.get().add(new BackupCaller());
         Modules.get().add(new AntiPlayerSwing());
+
         // Commands
         Commands.add(new Discord());
         Commands.add(new GambleYourBase());
+        Commands.add(new stats());
 
         // HUD
         Hud.get().register(fps.INFO);

@@ -27,6 +27,8 @@ dependencies {
 
     // Meteor
     modImplementation "meteordevelopment:meteor-client:${project.meteor_version}"
+
+    implementation 'org.jsoup:jsoup:1.16.1'
 }
 
 processResources {

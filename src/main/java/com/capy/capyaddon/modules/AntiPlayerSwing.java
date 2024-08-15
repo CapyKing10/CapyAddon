@@ -17,7 +17,9 @@ public class AntiPlayerSwing extends Module {
         float delta = event.tickDelta;
         for(Entity entity : mc.world.getEntities()) {
             if (entity instanceof PlayerEntity) {
-                event.cancel();
+                ((PlayerEntity) entity).limbAnimator.setSpeed(0f);
+                ((PlayerEntity) entity).limbAnimator.updateLimbs(0f, delta);
+                ((PlayerEntity) entity).limbAnimator.setSpeed(0f);
             }
         }
     }
