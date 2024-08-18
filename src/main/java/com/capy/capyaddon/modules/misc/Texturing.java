@@ -1,4 +1,4 @@
-package com.capy.capyaddon.modules;
+package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.utils.LogUtils;
@@ -14,11 +14,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Texturing extends Module {
     public Texturing() {
-        super(CapyAddon.CATEGORY, "Texturing", "a module that switches between all blocks in the hotbar randomly");
+        super(CapyAddon.MISC, "Texturing", "a module that switches between all blocks in the hotbar randomly");
     }
 
     public SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -33,24 +34,27 @@ public class Texturing extends Module {
     );
 
     private int timer;
-    ArrayList<Integer> slots = new ArrayList<>();
+    private final List<Integer> slots = new ArrayList<>();
 
     @Override
     public void onActivate() {
+        slots.clear(); // Clear slots before repopulating
 
-        // get all blocks in the hotbar
-        for (int i = 0; i < 10; i++) {
+        // Get all blocks in the hotbar
+        for (int i = 0; i < 9; i++) { // Only loop through the valid hotbar slots (0-8)
             ItemStack stack = MinecraftClient.getInstance().player.getInventory().getStack(i);
             if (stack.getItem() instanceof BlockItem) {
-                MinecraftClient.getInstance().player.getInventory().selectedSlot = i;
-                slots.add(i);
+                slots.add(i); // Add only valid slots with BlockItem
             }
-            if (i > 8) {
-                if (slots.isEmpty()) {
-                    LogUtils.sendMessage("There are " + Formatting.RED + "No " + Formatting.WHITE + "blocks in your hotbar.");
-                    toggle();
-                }
-            }
+        }
+
+        if (slots.isEmpty()) {
+            LogUtils.sendMessage("There are " + Formatting.RED + "No " + Formatting.WHITE + "blocks in your hotbar.", true);
+            toggle();
+        } else {
+            // Select a random block item slot initially
+            int randomIndex = new Random().nextInt(slots.size());
+            MinecraftClient.getInstance().player.getInventory().selectedSlot = slots.get(randomIndex);
         }
     }
 
@@ -59,19 +63,16 @@ public class Texturing extends Module {
         if (timer <= 0) {
             if (!slots.isEmpty()) {
                 int randomIndex = new Random().nextInt(slots.size());
-                if (randomIndex > 9) {
-                    MinecraftClient.getInstance().player.getInventory().selectedSlot = 9;
-                } else {
-                    MinecraftClient.getInstance().player.getInventory().selectedSlot = slots.get(randomIndex);
-                }
+                int selectedSlot = slots.get(randomIndex);
+                MinecraftClient.getInstance().player.getInventory().selectedSlot = selectedSlot;
             }
-            int delay = switchInterval.get() / 50;
-            timer = delay;
+            timer = switchInterval.get() / 50;
         } else {
             timer--;
         }
     }
 
+    @Override
     public void onDeactivate() {
         slots.clear();
     }

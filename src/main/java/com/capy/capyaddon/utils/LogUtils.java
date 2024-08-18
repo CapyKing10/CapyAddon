@@ -10,8 +10,8 @@ import net.minecraft.util.Formatting;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class LogUtils {
-    public static void sendMessage(String msg) {
-        int id = 93;
+
+    public static void sendMessage(String msg, Boolean stack) {
         if (mc.world == null) return;
 
         MutableText message = Text.empty();
@@ -19,9 +19,21 @@ public class LogUtils {
         message.append(" ");
         message.append(msg);
 
+        int id;
+        if (stack) {
+            id = 93;
+        } else {
+            id = (int) (System.currentTimeMillis() % Integer.MAX_VALUE); // unique id
+        }
+
         if (!Config.get().deleteChatFeedback.get()) id = 0;
 
         ((IChatHud) mc.inGameHud.getChatHud()).meteor$add(message, id);
+    }
+
+    public static void sendRawMessage(String msg) {
+        if (mc.world == null) return;
+        mc.inGameHud.getChatHud().addMessage(Text.of(msg));
     }
 
     public static void sendNotification(String message) {
@@ -38,7 +50,11 @@ public class LogUtils {
             .append(Text.literal("["))
             .append(name1)
             .append(name2)
-            .append(Text.literal("] "));
+            .append(Text.literal("]"));
         return prefix;
+    }
+
+    public static String getStringPrefix() {
+        return Formatting.GRAY + "[" + Formatting.GOLD + "Capy" + Formatting.YELLOW + "Addon" + Formatting.GRAY + "]" + Formatting.RESET;
     }
 }

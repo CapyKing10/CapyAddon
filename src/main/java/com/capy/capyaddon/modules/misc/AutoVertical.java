@@ -1,4 +1,4 @@
-package com.capy.capyaddon.modules;
+package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.utils.LogUtils;
@@ -8,14 +8,14 @@ import meteordevelopment.meteorclient.systems.modules.movement.elytrafly.ElytraF
 
 public class AutoVertical extends Module {
     public AutoVertical() {
-        super(CapyAddon.CATEGORY, "Auto Vertical", "Fuck you advik (elytra fly's you to the moon)");
+        super(CapyAddon.MISC, "Auto Vertical", "Fuck you advik (elytra fly's you to the moon)");
     }
 
     public void onActivate() {
         if (Modules.get().get(ElytraFly.class).isActive()) {
             mc.options.jumpKey.setPressed(true);
         } else {
-            LogUtils.sendMessage("ElytraFly needs to be enabled on mode: Vanilla");
+            LogUtils.sendMessage("ElytraFly needs to be enabled on mode: Vanilla", true);
             this.toggle();
         }
     }

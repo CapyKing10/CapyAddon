@@ -1,4 +1,4 @@
-package com.capy.capyaddon.modules;
+package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
 import meteordevelopment.meteorclient.systems.modules.Module;
@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 public class ShulkerDrop extends Module {
     public ShulkerDrop() {
-        super(CapyAddon.CATEGORY, "ShulkerDrop", "a module that drops all shulkers in the inventory on the ground");
+        super(CapyAddon.MISC, "ShulkerDrop", "a module that drops all shulkers in the inventory on the ground");
     }
 
     @Override

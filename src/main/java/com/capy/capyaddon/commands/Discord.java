@@ -16,7 +16,7 @@ public class Discord extends Command {
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
-            LogUtils.sendMessage(Formatting.WHITE + "Join the Discord at " + Formatting.GOLD + "dsc.gg/capyking10");
+            LogUtils.sendMessage(Formatting.WHITE + "Join the Discord at " + Formatting.GOLD + "dsc.gg/capyking10", true);
             return SINGLE_SUCCESS;
         });
     }

@@ -23,9 +23,9 @@ public class GambleYourBase extends Command {
                 PlayerEntity player = MinecraftClient.getInstance().player;
                 String message = "my coordinates are X: " + Math.round(player.getX()) + " Y: " + Math.round(player.getY()) + " Z: " + Math.round(player.getZ()) + " in dimension: " + player.getWorld().getRegistryKey().getValue();
                 ChatUtils.sendPlayerMsg(message);
-                LogUtils.sendMessage(Formatting.WHITE + "your coordinates got leaked :(");
+                LogUtils.sendMessage(Formatting.WHITE + "your coordinates got leaked :(", true);
             } else {
-                LogUtils.sendMessage(Formatting.WHITE + "hooray, your coordinates are safe.");
+                LogUtils.sendMessage(Formatting.WHITE + "hooray, your coordinates are safe.", true);
             }
             return SINGLE_SUCCESS;
         });

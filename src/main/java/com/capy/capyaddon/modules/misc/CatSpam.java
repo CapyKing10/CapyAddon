@@ -1,4 +1,4 @@
-package com.capy.capyaddon.modules;
+package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
 import meteordevelopment.meteorclient.events.game.GameLeftEvent;
@@ -61,7 +61,7 @@ public class CatSpam extends Module {
     private int timer;
 
     public CatSpam() {
-        super(CapyAddon.CATEGORY, "CatSpam", "Spam Cat in chat! ^v^");
+        super(CapyAddon.MISC, "CatSpam", "Spam Cat in chat! ^v^");
     }
 
     @Override

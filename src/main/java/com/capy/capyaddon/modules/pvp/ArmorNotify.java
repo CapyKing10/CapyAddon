@@ -1,12 +1,9 @@
-package com.capy.capyaddon.modules;
+package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.utils.LogUtils;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.settings.EnumSetting;
-import meteordevelopment.meteorclient.settings.IntSetting;
-import meteordevelopment.meteorclient.settings.Setting;
-import meteordevelopment.meteorclient.settings.SettingGroup;
+import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +29,7 @@ public class ArmorNotify extends Module {
     );
 
     public ArmorNotify() {
-        super(CapyAddon.CATEGORY, "ArmorNotify", "notifies you whenever an armor piece is gonna run out of durability");
+        super(CapyAddon.PVP, "ArmorNotify", "notifies you whenever an armor piece is gonna run out of durability");
     }
 
     public boolean logged = false;
@@ -54,7 +51,7 @@ public class ArmorNotify extends Module {
                 }
 
                 if (currentDurability <= limit.get()) {
-                    if (logMode.get() == Modes.chat) LogUtils.sendMessage(Formatting.RED + "[!] " + Formatting.WHITE + "Your " + armorItem.getName().getString() + " is about to run out of durability " + Formatting.GRAY + "(" + currentDurability + ")");
+                    if (logMode.get() == Modes.chat) LogUtils.sendMessage(Formatting.RED + "[!] " + Formatting.WHITE + "Your " + Formatting.GOLD + armorItem.getName().getString() + Formatting.WHITE + " is about to run out of durability " + Formatting.GRAY + "(" + currentDurability + ")", true);
                     if (logMode.get() == Modes.notification) LogUtils.sendNotification(armorItem.getName().getString() + " low dur " + currentDurability);
                     logged = true;
                 } else {

@@ -1,4 +1,4 @@
-package com.capy.capyaddon.modules;
+package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
 import meteordevelopment.meteorclient.settings.DoubleSetting;
@@ -22,6 +22,6 @@ public class ChunkDupeTimer extends Module {
     );
 
     public ChunkDupeTimer() {
-        super(CapyAddon.CATEGORY, "ChunkDupeTimer", "shows a timer on the multiplayer screen to perform the chunkdupe optionally");
+        super(CapyAddon.MISC, "ChunkDupeTimer", "shows a timer on the multiplayer screen to perform the chunkdupe optionally");
     }
 }

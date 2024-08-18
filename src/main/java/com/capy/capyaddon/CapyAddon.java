@@ -2,12 +2,15 @@ package com.capy.capyaddon;
 
 import com.capy.capyaddon.commands.Discord;
 import com.capy.capyaddon.commands.GambleYourBase;
-import com.capy.capyaddon.commands.stats;
+import com.capy.capyaddon.commands.StatsCommand;
 import com.capy.capyaddon.hud.Welcomer;
 import com.capy.capyaddon.hud.ObscufatedCoords;
 import com.capy.capyaddon.hud.fps;
 import com.capy.capyaddon.hud.watermark;
-import com.capy.capyaddon.modules.*;
+import com.capy.capyaddon.modules.misc.*;
+import com.capy.capyaddon.modules.pvp.ArmorNotify;
+import com.capy.capyaddon.modules.pvp.LogoutSpotsPlus;
+import com.capy.capyaddon.modules.pvp.PopCounter;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
@@ -19,10 +22,11 @@ import org.slf4j.Logger;
 
 public class CapyAddon extends MeteorAddon {
     public static final String NAME = "CapyAddon";
-    public static final String VERSION = "1.0.3";
+    public static final String VERSION = "1.0.4";
 
     public static final Logger LOG = LogUtils.getLogger();
-    public static final Category CATEGORY = new Category("CapyAddon");
+    public static final Category MISC = new Category("CapyAddon - MISC");
+    public static final Category PVP = new Category("CapyAddon - PvP");
     public static final HudGroup HUD_GROUP = new HudGroup("CapyAddon");
 
     @Override
@@ -42,11 +46,13 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new ArmorNotify());
         Modules.get().add(new BackupCaller());
         Modules.get().add(new AntiPlayerSwing());
+        Modules.get().add(new Cape());
+        Modules.get().add(new LogoutSpotsPlus());
 
         // Commands
         Commands.add(new Discord());
         Commands.add(new GambleYourBase());
-        Commands.add(new stats());
+        Commands.add(new StatsCommand());
 
         // HUD
         Hud.get().register(fps.INFO);
@@ -57,7 +63,8 @@ public class CapyAddon extends MeteorAddon {
 
     @Override
     public void onRegisterCategories() {
-        Modules.registerCategory(CATEGORY);
+        Modules.registerCategory(PVP);
+        Modules.registerCategory(MISC);
     }
 
     @Override

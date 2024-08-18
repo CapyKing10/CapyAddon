@@ -12,19 +12,17 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.text.Format;
-
 import static com.mojang.brigadier.Command.SINGLE_SUCCESS;
 
-public class stats extends Command {
-    public stats() {
-        super("stats", "get someone's joindate and playtime");
+public class StatsCommand extends Command {
+    public StatsCommand() {
+        super("6b6tstats", "get someone's joindate and playtime");
     }
 
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
-            LogUtils.sendMessage("Please provide a username to get the stats of.");
+            LogUtils.sendMessage("Please provide a username to get the stats of.", true);
             return SINGLE_SUCCESS;
         });
 
@@ -37,7 +35,7 @@ public class stats extends Command {
     }
 
     public static String getJoinDate(String playerName) {
-        String url = "https://www.6b6t.org/en/stats/" + playerName;
+        String url = "https://www.6b6t.org/en/stats/" + playerName + "?_rsc=3fdsf325";
 
         try {
             Document doc = Jsoup.connect(url).get();
@@ -65,9 +63,8 @@ public class stats extends Command {
         }
     }
 
-
     public static String getPlayTime(String playerName) {
-        String url = "https://www.6b6t.org/en/stats/" + playerName;
+        String url = "https://www.6b6t.org/en/stats/" + playerName + "?_rsc=3fdsf325";
 
         try {
             Document doc = Jsoup.connect(url).get();

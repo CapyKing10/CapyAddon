@@ -1,4 +1,4 @@
-package com.capy.capyaddon.modules;
+package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
 import meteordevelopment.meteorclient.events.entity.LivingEntityMoveEvent;
@@ -41,7 +41,7 @@ public class EntityFly extends Module {
     );
 
     public EntityFly() {
-        super(CapyAddon.CATEGORY, "EntityFly", "fly with entites such as donkeys and horses!");
+        super(CapyAddon.MISC, "EntityFly", "fly with entites such as donkeys and horses!");
     }
 
     @EventHandler
