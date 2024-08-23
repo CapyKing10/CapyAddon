@@ -1,22 +1,26 @@
 package com.capy.capyaddon.utils;
 
+import com.capy.capyaddon.Settings;
 import meteordevelopment.meteorclient.mixininterface.IChatHud;
 import meteordevelopment.meteorclient.systems.config.Config;
 import meteordevelopment.meteorclient.utils.render.MeteorToast;
+import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.item.Items;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class LogUtils {
+
+    public static Settings settings = Settings.get();
 
     public static void sendMessage(String msg, Boolean stack) {
         if (mc.world == null) return;
 
         MutableText message = Text.empty();
         message.append(getPrefix());
-        message.append(" ");
         message.append(msg);
 
         int id;
@@ -41,17 +45,34 @@ public class LogUtils {
     }
 
     public static Text getPrefix() {
-        MutableText name1 = Text.literal("Capy");
-        MutableText name2 = Text.literal("Addon");
         MutableText prefix = Text.literal("");
-        name1.setStyle(name1.getStyle().withFormatting(Formatting.GOLD));
-        name2.setStyle(name2.getStyle().withFormatting(Formatting.YELLOW));
-        prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY))
-            .append(Text.literal("["))
-            .append(name1)
-            .append(name2)
-            .append(Text.literal("]"));
+        if (settings.useThemeColoForPrefix.get()) {
+            SettingColor cS = settings.themeColor.get();
+            SettingColor bC = settings.bracketsColor.get();
+            MutableText name = Text.literal("CapyAddon");
+            int textColor = (cS.r << 16) | (cS.g << 8) | cS.b;
+            int bracketColor = (bC.r << 16) | (bC.g << 8) | bC.b;
+            name.setStyle(name.getStyle().withColor(TextColor.fromRgb(textColor)));
+            prefix.setStyle((settings.useBracketsColor.get() ? prefix.getStyle().withColor(TextColor.fromRgb(bracketColor)) : prefix.getStyle().withFormatting(Formatting.WHITE)))
+                .append(Text.literal("["))
+                .append(name)
+                .append(Text.literal("] "));
+        } else {
+            MutableText name1 = Text.literal("Capy");
+            MutableText name2 = Text.literal("Addon");
+            name1.setStyle(name1.getStyle().withFormatting(Formatting.GOLD));
+            name2.setStyle(name2.getStyle().withFormatting(Formatting.YELLOW));
+            prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY))
+                .append(Text.literal("["))
+                .append(name1)
+                .append(name2)
+                .append(Text.literal("] "));
+        }
         return prefix;
+    }
+
+    static String rgbaToHex(int r, int g, int b) {
+        return String.format("#%02x%02x%02x", r, g, b);
     }
 
     public static String getStringPrefix() {

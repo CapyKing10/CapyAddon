@@ -3,21 +3,19 @@ package com.capy.capyaddon;
 import com.capy.capyaddon.commands.Discord;
 import com.capy.capyaddon.commands.GambleYourBase;
 import com.capy.capyaddon.commands.StatsCommand;
-import com.capy.capyaddon.hud.Welcomer;
-import com.capy.capyaddon.hud.ObscufatedCoords;
-import com.capy.capyaddon.hud.fps;
-import com.capy.capyaddon.hud.watermark;
+import com.capy.capyaddon.hud.*;
 import com.capy.capyaddon.modules.misc.*;
-import com.capy.capyaddon.modules.pvp.ArmorNotify;
-import com.capy.capyaddon.modules.pvp.LogoutSpotsPlus;
-import com.capy.capyaddon.modules.pvp.PopCounter;
+import com.capy.capyaddon.modules.pvp.*;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
+import meteordevelopment.meteorclient.settings.*;
+import meteordevelopment.meteorclient.systems.config.Config;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
+import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import org.slf4j.Logger;
 
 public class CapyAddon extends MeteorAddon {
@@ -48,6 +46,8 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new AntiPlayerSwing());
         Modules.get().add(new Cape());
         Modules.get().add(new LogoutSpotsPlus());
+        Modules.get().add(new VisualRange());
+        Modules.get().add(new AntiPistonPush());
 
         // Commands
         Commands.add(new Discord());
@@ -59,6 +59,10 @@ public class CapyAddon extends MeteorAddon {
         Hud.get().register(watermark.INFO);
         Hud.get().register(ObscufatedCoords.INFO);
         Hud.get().register(Welcomer.INFO);
+        Hud.get().register(Direction.INFO);
+        Hud.get().register(Position.INFO);
+
+        Settings.get();
     }
 
     @Override

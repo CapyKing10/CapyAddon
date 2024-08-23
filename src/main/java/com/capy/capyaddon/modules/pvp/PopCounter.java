@@ -8,7 +8,6 @@ import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
-import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
@@ -19,34 +18,32 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.packet.s2c.play.EntityStatusS2CPacket;
 import net.minecraft.util.Formatting;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class PopCounter extends Module {
-    private final Object2IntMap<UUID> totemPopMap = new Object2IntOpenHashMap<>();
+    public final Object2IntMap<UUID> totemPopMap = new Object2IntOpenHashMap<>();
 
     public SettingGroup sgLog = settings.createGroup("Log Settings");
 
     // Log Settings
 
     private final Setting<Boolean> ignoreSelf = sgLog.add(new BoolSetting.Builder()
-        .name("Ignore Self")
+        .name("ignore-self")
         .description("Ignore yourself when popping")
         .defaultValue(true)
         .build()
     );
 
     private final Setting<Boolean> resetPopsOnDeath = sgLog.add(new BoolSetting.Builder()
-        .name("Reset Pops On Death")
+        .name("reset-pops-on-death")
         .description("Reset the amount of pops when you die")
         .defaultValue(true)
         .build()
     );
 
     private final Setting<Boolean> stackMessages = sgLog.add(new BoolSetting.Builder()
-        .name("Stack Messages")
-        .description("stack the pop messages so it doesnt consume your chat")
+        .name("stack-messages")
+        .description("Stack the pop messages so it doesn't spam your chat")
         .defaultValue(false)
         .build()
     );
@@ -73,7 +70,7 @@ public class PopCounter extends Module {
         if ((entity.equals(mc.player) && ignoreSelf.get())) return;
 
         synchronized (totemPopMap) {
-            int pops = totemPopMap.getOrDefault(entity.getUuid(), 0);
+            int pops = getPops(entity.getUuid());
             totemPopMap.put(entity.getUuid(), ++pops);
 
             LogUtils.sendMessage(entity.getName().getString() + " popped " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
@@ -89,7 +86,7 @@ public class PopCounter extends Module {
                 if (player.deathTime > 0 || player.getHealth() <= 0) {
                     int pops = totemPopMap.removeInt(player.getUuid());
 
-                    LogUtils.sendMessage(player.getName().getString() + " died after popping " + Formatting.YELLOW + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? "totem" : "totems"), stackMessages.get());
+                    LogUtils.sendMessage(player.getName().getString() + " died after popping " + Formatting.YELLOW + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
                 }
             }
         }
@@ -104,6 +101,10 @@ public class PopCounter extends Module {
                 totemPopMap.clear();
             }
         }
+    }
+
+    public int getPops(UUID uuid) {
+        return totemPopMap.getOrDefault(uuid, 0);
     }
 }
 

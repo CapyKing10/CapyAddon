@@ -1,6 +1,7 @@
 package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.utils.LogUtils;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
@@ -28,35 +29,20 @@ public class ClientPrefix extends Module {
     }
 
     public void onActivate() {
-        ChatUtils.registerCustomPrefix("com.capy.capyaddon", this::getPrefix);
+        ChatUtils.registerCustomPrefix("com.capy.capyaddon", LogUtils::getPrefix);
     }
 
     public void onDeactivate() {
         ChatUtils.unregisterCustomPrefix("com.capy.capyaddon");
-        ChatUtils.registerCustomPrefix("meteordevelopment.meteorclient", this::getPrefix);
+        ChatUtils.registerCustomPrefix("meteordevelopment.meteorclient", LogUtils::getPrefix);
     }
 
     @EventHandler
     public void onTick() {
         if (global.get()) {
-            ChatUtils.registerCustomPrefix("meteordevelopment.meteorclient", this::getPrefix);
+            ChatUtils.registerCustomPrefix("meteordevelopment.meteorclient", LogUtils::getPrefix);
         } else {
             ChatUtils.unregisterCustomPrefix("meteordevelopment.meteorclient");
         }
     }
-
-    public Text getPrefix() {
-        MutableText name1 = Text.literal("Capy");
-        MutableText name2 = Text.literal("Addon");
-        MutableText prefix = Text.literal("");
-        name1.setStyle(name1.getStyle().withFormatting(Formatting.GOLD));
-        name2.setStyle(name2.getStyle().withFormatting(Formatting.YELLOW));
-        prefix.setStyle(prefix.getStyle().withFormatting(Formatting.GRAY))
-            .append(Text.literal("["))
-            .append(name1)
-            .append(name2)
-            .append(Text.literal("] "));
-        return prefix;
-    }
-
 }

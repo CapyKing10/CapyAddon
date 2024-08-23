@@ -1,6 +1,7 @@
 package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.utils.LogUtils;
 import com.capy.capyaddon.utils.LogoutSpotsPlus.Entry;
 import com.capy.capyaddon.utils.LogoutSpotsPlus.GhostPlayer;
 import meteordevelopment.meteorclient.events.entity.EntityAddedEvent;
@@ -17,6 +18,10 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +34,35 @@ public class LogoutSpotsPlus extends Module {
     private int timer;
     private Dimension lastDimension;
 
+    private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgGhost = settings.createGroup("Ghost");
     private final SettingGroup sgRender = settings.createGroup("Render");
+    private final SettingGroup sgCompatibility = settings.createGroup("Compatibility");
+
+    // General
+
+    public final Setting<Boolean> logToChat = sgGeneral.add(new BoolSetting.Builder()
+        .name("log-to-chat")
+        .description("log to chat whenever someone leave or re-joins")
+        .defaultValue(true)
+        .build()
+    );
+
+    public final Setting<Boolean> prefix = sgGeneral.add(new BoolSetting.Builder()
+        .name("exclamation-mark-prefix")
+        .description("ignore yourself if you log out")
+        .defaultValue(true)
+        .visible(logToChat::get)
+        .build()
+    );
+
+    public final Setting<Boolean> stackMessages = sgGeneral.add(new BoolSetting.Builder()
+        .name("stack-messages")
+        .description("Stack the messages so it doesn't spam your chat")
+        .defaultValue(true)
+        .visible(logToChat::get)
+        .build()
+    );
 
     // Ghost
 
@@ -71,11 +103,35 @@ public class LogoutSpotsPlus extends Module {
         .build()
     );
 
+    public final Setting<Boolean> distance = sgRender.add(new BoolSetting.Builder()
+        .name("distance")
+        .description("add a distance thingy on the nametag")
+        .defaultValue(true)
+        .build()
+    );
+
+    public final Setting<SettingColor> distanceColor = sgRender.add(new ColorSetting.Builder()
+        .name("distance-color")
+        .description("color of the distance on the nametag")
+        .defaultValue(new SettingColor(255, 255, 255))
+        .visible(distance::get)
+        .build()
+    );
+
     public final Setting<Double> scale = sgRender.add(new DoubleSetting.Builder()
         .name("scale")
         .description("The scale.")
         .defaultValue(1)
         .min(0)
+        .build()
+    );
+
+    // Compatibility
+
+    public final Setting<Boolean> popCounter = sgCompatibility.add(new BoolSetting.Builder()
+        .name("pop-counter")
+        .description("use compatibility with popcounter")
+        .defaultValue(true)
         .build()
     );
 
@@ -87,9 +143,7 @@ public class LogoutSpotsPlus extends Module {
     private void onEntityAdded(EntityAddedEvent event) {
         if (event.entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.entity;
-            System.out.println("player added");
 
-            // Remove the corresponding ghost if the player logs back in
             ghosts.removeIf(ghost -> ghost.getUuid().equals(player.getUuid()));
 
             int toRemove = -1;
@@ -101,6 +155,8 @@ public class LogoutSpotsPlus extends Module {
             }
 
             if (toRemove != -1) {
+                String suffix = (prefix.get() ? Formatting.DARK_RED + "[" + Formatting.RED + "!" + Formatting.DARK_RED + "]" + Formatting.RESET + " " : "");
+                if (logToChat.get()) LogUtils.sendMessage(suffix + player.getName().getString() + " logged back in. " + Formatting.GRAY + "[" + Formatting.GOLD + mc.player.distanceTo(player) + Formatting.GRAY + "]", stackMessages.get());
                 players.remove(toRemove);
             }
         }
@@ -108,31 +164,34 @@ public class LogoutSpotsPlus extends Module {
 
     @EventHandler
     private void onTick(TickEvent.Post event) {
-        // Convert the Collection to a List
         List<PlayerListEntry> currentPlayerList = new ArrayList<>(mc.getNetworkHandler().getPlayerList());
 
-        // Detect player logout by comparing last and current player lists
         for (PlayerListEntry lastEntry : lastPlayerList) {
             boolean stillOnline = currentPlayerList.stream()
                 .anyMatch(currentEntry -> currentEntry.getProfile().getId().equals(lastEntry.getProfile().getId()));
 
             if (!stillOnline) {
-                // Player logged out
                 for (PlayerEntity player : lastPlayers) {
                     if (player.getUuid().equals(lastEntry.getProfile().getId())) {
-                        System.out.println("player logged out: " + player.getName().getString());
-                        add(new Entry(player, this));
+                        String suffix = (prefix.get() ? Formatting.DARK_RED + "[" + Formatting.RED + "!" + Formatting.DARK_RED + "]" + Formatting.RESET + " " : "");
+                        if (logToChat.get()) LogUtils.sendMessage(suffix + player.getName().getString() + " logged out. " + Formatting.GRAY + "[" + Formatting.GOLD + mc.player.distanceTo(player) + Formatting.GRAY + "]", stackMessages.get());
+                        if (popCounter.get()) {
+                            PopCounter popCounter1 = new PopCounter();
+                            synchronized (popCounter1.totemPopMap) {
+                                int pops = popCounter1.getPops(player.getUuid());
+                                if (logToChat.get()) LogUtils.sendMessage(suffix + player.getName().getString() + " logged out after popping " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
+                            }
+                        }
+                        addEntry(new Entry(player, this));
                     }
                 }
             }
         }
 
-        // Update the last player list to the current one
         lastPlayerList.clear();
         lastPlayerList.addAll(currentPlayerList);
         updateLastPlayers();
 
-        // Timer logic for periodic updates
         if (timer <= 0) {
             updateLastPlayers();
             timer = 10;
@@ -140,7 +199,6 @@ public class LogoutSpotsPlus extends Module {
             timer--;
         }
 
-        // Handle dimension changes
         Dimension currentDimension = PlayerUtils.getDimension();
         if (currentDimension != lastDimension) {
             players.clear();
@@ -148,12 +206,43 @@ public class LogoutSpotsPlus extends Module {
         lastDimension = currentDimension;
     }
 
+    @EventHandler
+    private void onTick2(TickEvent.Post event) {
+        List<PlayerEntity> currentPlayers = new ArrayList<>(mc.world.getPlayers());
+
+        for (PlayerEntity player : currentPlayers) {
+            GhostPlayer ghostPlayer = new GhostPlayer(player, this);
+
+            if (ghosts.contains(ghostPlayer)) {
+                if (player.deathTime > 0 || player.getHealth() <= 0) {
+                    ghosts.removeIf(ghost -> ghost.getUuid().equals(player.getUuid()));
+
+                    players.removeIf(p -> p.uuid.equals(player.getUuid()));
+
+                }
+            }
+        }
+
+        if (timer <= 0) {
+            updateLastPlayers();
+            timer = 10;
+        } else {
+            timer--;
+        }
+
+        Dimension currentDimension = PlayerUtils.getDimension();
+        if (currentDimension != lastDimension) {
+            players.clear();
+        }
+        lastDimension = currentDimension;
+    }
 
     @Override
     public void onDeactivate() {
-        synchronized (ghosts) {
-            ghosts.clear();
-        }
+        synchronized (ghosts) { ghosts.clear(); }
+        synchronized (players) { players.clear(); }
+        synchronized (lastPlayers) { lastPlayers.clear(); }
+        synchronized (lastPlayerList) { lastPlayerList.clear(); }
     }
 
     @EventHandler
@@ -173,7 +262,7 @@ public class LogoutSpotsPlus extends Module {
         }
     }
 
-    private void add(Entry entry) {
+    private void addEntry(Entry entry) {
         players.removeIf(player -> player.uuid.equals(entry.uuid));
         players.add(entry);
     }

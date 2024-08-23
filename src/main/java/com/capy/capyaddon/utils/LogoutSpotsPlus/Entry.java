@@ -10,6 +10,7 @@ import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Formatting;
 import org.joml.Vector3d;
 
 import java.util.UUID;
@@ -26,6 +27,7 @@ public class Entry {
     public final String name;
     public final int health, maxHealth;
     public final String healthText;
+    public String distanceText;
     public final PlayerEntity p;
 
     private final LogoutSpotsPlus LSP;
@@ -48,26 +50,25 @@ public class Entry {
         health = Math.round(entity.getHealth() + entity.getAbsorptionAmount());
         maxHealth = Math.round(entity.getMaxHealth() + entity.getAbsorptionAmount());
 
+        assert mc.player != null;
         healthText = " " + health;
-
-        System.out.println("entry");
+        distanceText = "";
     }
 
     public void render3D() {
-        if (!LSP.ghosts.stream().anyMatch(g -> g.getUuid().equals(this.uuid))) {
-            System.out.println("entry render");
+        if (LSP.ghosts.stream().noneMatch(g -> g.getUuid().equals(this.uuid))) {
             LSP.ghosts.add(new GhostPlayer(p, LSP));
         }
     }
 
     @EventHandler
     public void render2D() {
-        System.out.println("entry 2d");
         if (!PlayerUtils.isWithinCamera(x, y, z, mc.options.getViewDistance().getValue() * 16)) return;
 
         TextRenderer text = TextRenderer.get();
         double scale = LSP.scale.get();
         pos.set(x + halfWidth, y + height + 0.5, z + halfWidth);
+        distanceText = " [" + Math.round(mc.player.distanceTo(p)) + "]";
 
         if (!NametagUtils.to2D(pos, scale)) return;
 
@@ -83,15 +84,16 @@ public class Entry {
         else healthColor = Color.GREEN;
 
         // Render background
-        double i = text.getWidth(name) / 2.0 + text.getWidth(healthText) / 2.0;
+        double i = text.getWidth(name) / 2.0 + text.getWidth(healthText) / 2.0 + (LSP.distance.get() ? text.getWidth(distanceText) / 2.0 : 0);
         Renderer2D.COLOR.begin();
         Renderer2D.COLOR.quad(-i, 0, i * 2, text.getHeight(), LSP.nameBackgroundColor.get());
         Renderer2D.COLOR.render(null);
 
         // Render name and health texts
         text.beginBig();
-        double hX = text.render(name, -i, 0, LSP.nameColor.get());
-        text.render(healthText, hX, 0, healthColor);
+        double aX = text.render(name, -i, 0, LSP.nameColor.get());
+        double bX = text.render(healthText, aX, 0, healthColor);
+        if (LSP.distance.get()) text.render(distanceText, bX, 0, LSP.distanceColor.get());
         text.end();
 
         NametagUtils.end();

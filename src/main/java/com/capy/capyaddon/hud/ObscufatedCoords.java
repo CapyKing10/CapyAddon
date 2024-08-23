@@ -1,6 +1,7 @@
 package com.capy.capyaddon.hud;
 
 import com.capy.capyaddon.CapyAddon;
+import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
@@ -22,6 +23,13 @@ public class ObscufatedCoords extends HudElement {
         .build()
     );
 
+    private final Setting<Boolean> shadow = sgGeneral.add(new BoolSetting.Builder()
+        .name("shadow")
+        .description("render a shadow")
+        .defaultValue(true)
+        .build()
+    );
+
     public static final HudElementInfo<ObscufatedCoords> INFO = new HudElementInfo<>(CapyAddon.HUD_GROUP, "obscufated-coords", "Fake Coordinates Display", ObscufatedCoords::new);
 
     public ObscufatedCoords() {
@@ -38,8 +46,8 @@ public class ObscufatedCoords extends HudElement {
         double spoofedZ = Math.round(player.getZ() * (Math.random() * multiplier.get()));
 
         String text = "x: " + spoofedX + " y: " + spoofedY + " z: " + spoofedZ;
-        setSize(renderer.textWidth(text, true), renderer.textHeight(true));
+        setSize(renderer.textWidth(text, shadow.get()), renderer.textHeight(shadow.get()));
 
-        renderer.text(text, x, y, Color.WHITE, true);
+        renderer.text(text, x, y, Color.WHITE, shadow.get());
     }
 }

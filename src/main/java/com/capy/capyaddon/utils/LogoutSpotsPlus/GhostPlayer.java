@@ -17,11 +17,9 @@ public class GhostPlayer extends FakePlayerEntity {
         super(player, "ghost", 20, false);
         this.uuid = player.getUuid();
         this.LSP = module;  // Pass the correct instance
-        System.out.println("ghostplayer");
     }
 
     public boolean render(Render3DEvent event) {
-        System.out.println("ghost render");
         WireframeEntityRenderer.render(event, this, scale, LSP.sideColor.get(), LSP.lineColor.get(), LSP.shapeMode.get());
 
         // Return true if the ghost should be removed after rendering, false if it should stay

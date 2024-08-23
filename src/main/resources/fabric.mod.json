@@ -3,12 +3,12 @@
   "id": "capyaddon",
   "version": "1.20.4",
   "name": "CapyAddon",
-  "description": "A utility meteor addon made by Capy",
+  "description": "A utility/pvp meteor addon made by Capy",
   "authors": [
     "CapyKing10"
   ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/CapyKing10/CapyAddon"
   },
   "icon": "assets/capyaddon/icon.png",
   "environment": "client",

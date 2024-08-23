@@ -1,6 +1,7 @@
 package com.capy.capyaddon.mixin;
 
 import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.Settings;
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -13,6 +14,7 @@ import static meteordevelopment.meteorclient.MeteorClient.mc;
 public class MinecraftWindowNameMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(CallbackInfo ci) {
-        mc.getWindow().setTitle("Minecraft*. [" + CapyAddon.NAME + " " + CapyAddon.VERSION + "]");
+        Settings settings = Settings.get();
+        if (settings.windowName.get()) mc.getWindow().setTitle("Minecraft*. [" + CapyAddon.NAME + " " + CapyAddon.VERSION + "]");
     }
 }
