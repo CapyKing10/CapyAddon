@@ -1,6 +1,6 @@
 package com.capy.capyaddon.commands;
 
-import com.capy.capyaddon.utils.LogUtils;
+import com.capy.capyaddon.utils.cLogUtils;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
@@ -22,7 +22,7 @@ public class StatsCommand extends Command {
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
-            LogUtils.sendMessage("Please provide a username to get the stats of.", true);
+            cLogUtils.sendMessage("Please provide a username to get the stats of.", true);
             return SINGLE_SUCCESS;
         });
 

@@ -1,7 +1,7 @@
 package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
-import com.capy.capyaddon.utils.LogUtils;
+import com.capy.capyaddon.utils.cLogUtils;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class Texturing extends Module {
     public Texturing() {
-        super(CapyAddon.MISC, "Texturing", "a module that switches between all blocks in the hotbar randomly");
+        super(CapyAddon.MISC, "texturing", "a module that switches between all blocks in the hotbar randomly");
     }
 
     public SettingGroup sgGeneral = settings.getDefaultGroup();
@@ -40,16 +40,15 @@ public class Texturing extends Module {
     public void onActivate() {
         slots.clear(); // Clear slots before repopulating
 
-        // Get all blocks in the hotbar
-        for (int i = 0; i < 9; i++) { // Only loop through the valid hotbar slots (0-8)
+        for (int i = 0; i < 9; i++) {
             ItemStack stack = MinecraftClient.getInstance().player.getInventory().getStack(i);
             if (stack.getItem() instanceof BlockItem) {
-                slots.add(i); // Add only valid slots with BlockItem
+                slots.add(i);
             }
         }
 
         if (slots.isEmpty()) {
-            LogUtils.sendMessage("There are " + Formatting.RED + "No " + Formatting.WHITE + "blocks in your hotbar.", true);
+            cLogUtils.sendMessage("There are " + Formatting.RED + "No " + Formatting.WHITE + "blocks in your hotbar.", true);
             toggle();
         } else {
             // Select a random block item slot initially

@@ -1,7 +1,7 @@
 package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
-import com.capy.capyaddon.utils.LogUtils;
+import com.capy.capyaddon.utils.cLogUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
@@ -73,7 +73,7 @@ public class PopCounter extends Module {
             int pops = getPops(entity.getUuid());
             totemPopMap.put(entity.getUuid(), ++pops);
 
-            LogUtils.sendMessage(entity.getName().getString() + " popped " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
+            cLogUtils.sendMessage(entity.getName().getString() + " popped " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
         }
     }
 
@@ -86,7 +86,7 @@ public class PopCounter extends Module {
                 if (player.deathTime > 0 || player.getHealth() <= 0) {
                     int pops = totemPopMap.removeInt(player.getUuid());
 
-                    LogUtils.sendMessage(player.getName().getString() + " died after popping " + Formatting.YELLOW + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
+                    cLogUtils.sendMessage(player.getName().getString() + " died after popping " + Formatting.YELLOW + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
                 }
             }
         }

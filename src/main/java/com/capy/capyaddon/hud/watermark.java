@@ -27,7 +27,7 @@ public class watermark extends HudElement {
 
     @Override
     public void render(HudRenderer renderer) {
-        String text = CapyAddon.NAME + " " + CapyAddon.VERSION;
+        String text = CapyAddon.NAME + " " + CapyAddon.VERSION + " - " + CapyAddon.MC_VERSION;
         setSize(renderer.textWidth(text, shadow.get()), renderer.textHeight(shadow.get()));
 
         renderer.text(text, x, y, Color.WHITE, shadow.get());

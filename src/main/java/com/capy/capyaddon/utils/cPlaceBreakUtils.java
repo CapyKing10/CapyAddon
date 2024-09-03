@@ -1,6 +1,5 @@
 package com.capy.capyaddon.utils;
 
-import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractBlockC2SPacket;
 import net.minecraft.util.Hand;
@@ -11,9 +10,8 @@ import net.minecraft.util.math.Vec3d;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 import static meteordevelopment.meteorclient.utils.world.BlockUtils.canBreak;
-import static meteordevelopment.meteorclient.utils.world.BlockUtils.getDirection;
 
-public class PlaceBreakUtils {
+public class cPlaceBreakUtils {
     public static boolean breaking;
     private static boolean breakingThisTick;
 

@@ -12,7 +12,7 @@ import net.minecraft.text.TextColor;
 import net.minecraft.util.Formatting;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
-public class LogUtils {
+public class cLogUtils {
 
     public static Settings settings = Settings.get();
 

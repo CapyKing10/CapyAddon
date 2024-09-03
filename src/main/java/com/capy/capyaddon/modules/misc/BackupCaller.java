@@ -6,7 +6,7 @@ import meteordevelopment.meteorclient.utils.player.ChatUtils;
 
 public class BackupCaller extends Module {
     public BackupCaller() {
-        super(CapyAddon.MISC, "BackupCaller", "call for backup in chat");
+        super(CapyAddon.MISC, "backup-caller", "call for backup in chat");
     }
 
     @Override

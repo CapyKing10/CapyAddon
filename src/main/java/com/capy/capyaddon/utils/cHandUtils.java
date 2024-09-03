@@ -4,7 +4,7 @@ import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.util.Hand;
 
-public class HandUtils {
+public class cHandUtils {
     private static boolean mainSwinging = false;
     private float mainProgress = 0;
 

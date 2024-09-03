@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 public class ShulkerDrop extends Module {
     public ShulkerDrop() {
-        super(CapyAddon.MISC, "ShulkerDrop", "a module that drops all shulkers in the inventory on the ground");
+        super(CapyAddon.MISC, "shulker-drop", "a module that drops all shulkers in the inventory on the ground");
     }
 
     @Override

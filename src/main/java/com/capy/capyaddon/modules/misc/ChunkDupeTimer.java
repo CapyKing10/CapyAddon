@@ -22,6 +22,6 @@ public class ChunkDupeTimer extends Module {
     );
 
     public ChunkDupeTimer() {
-        super(CapyAddon.MISC, "ChunkDupeTimer", "shows a timer on the multiplayer screen to perform the chunkdupe optionally");
+        super(CapyAddon.MISC, "chunk-dupe-timer", "shows a timer on the multiplayer screen to perform the chunkdupe optionally");
     }
 }

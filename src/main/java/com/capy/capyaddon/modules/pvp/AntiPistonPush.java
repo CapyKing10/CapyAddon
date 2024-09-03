@@ -3,7 +3,6 @@ package com.capy.capyaddon.modules.pvp;
 import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.utils.Hole.Hole;
 import com.capy.capyaddon.utils.Hole.HoleUtils;
-import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -21,7 +20,8 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import com.capy.capyaddon.utils.PlaceBreakUtils;
+import com.capy.capyaddon.utils.cPlaceBreakUtils;
+import net.minecraft.util.profiling.jfr.event.PacketReceivedEvent;
 
 /*
 
@@ -75,7 +75,7 @@ public class AntiPistonPush extends Module {
     }
 
     @EventHandler
-    public void onTick(TickEvent.Pre event) {
+    public void onPacket(PacketReceivedEvent event) {
         if (mc.player == null || mc.world == null) return;
         BlockPos pos = mc.player.getBlockPos();
         Hole hole = HoleUtils.getHole(pos, true,true, true, 3, true);
@@ -101,7 +101,7 @@ public class AntiPistonPush extends Module {
 
             if (BlockUtils.canPlace(placelocation) && mc.player.getPose() == EntityPose.STANDING) {
                 InvUtils.swap(bestslot, true);
-                PlaceBreakUtils.placeBlock(Hand.MAIN_HAND, placelocation.toCenterPos(), BlockUtils.getDirection(placelocation), placelocation, bestslot, swing.get());
+                cPlaceBreakUtils.placeBlock(Hand.MAIN_HAND, placelocation.toCenterPos(), BlockUtils.getDirection(placelocation), placelocation, bestslot, swing.get());
                 InvUtils.swapBack();
             }
         }

@@ -1,6 +1,6 @@
 package com.capy.capyaddon.commands;
 
-import com.capy.capyaddon.utils.LogUtils;
+import com.capy.capyaddon.utils.cLogUtils;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import meteordevelopment.meteorclient.commands.Command;
 import net.minecraft.command.CommandSource;
@@ -16,7 +16,7 @@ public class Discord extends Command {
     @Override
     public void build(LiteralArgumentBuilder<CommandSource> builder) {
         builder.executes(context -> {
-            LogUtils.sendMessage(Formatting.WHITE + "Join the Discord at " + Formatting.GOLD + "dsc.gg/capyking10", true);
+            cLogUtils.sendMessage(Formatting.WHITE + "Join the Discord at " + Formatting.GOLD + "dsc.gg/capyking10", true);
             return SINGLE_SUCCESS;
         });
     }

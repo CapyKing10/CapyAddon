@@ -9,18 +9,18 @@ import com.capy.capyaddon.modules.pvp.*;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
-import meteordevelopment.meteorclient.settings.*;
-import meteordevelopment.meteorclient.systems.config.Config;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
-import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import org.slf4j.Logger;
+
+import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class CapyAddon extends MeteorAddon {
     public static final String NAME = "CapyAddon";
     public static final String VERSION = "1.0.4";
+    public static final String MC_VERSION = "1.21.1";
 
     public static final Logger LOG = LogUtils.getLogger();
     public static final Category MISC = new Category("CapyAddon - MISC");
@@ -44,10 +44,12 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new ArmorNotify());
         Modules.get().add(new BackupCaller());
         Modules.get().add(new AntiPlayerSwing());
-        Modules.get().add(new Cape());
         Modules.get().add(new LogoutSpotsPlus());
         Modules.get().add(new VisualRange());
         Modules.get().add(new AntiPistonPush());
+        Modules.get().add(new HandColor());
+        Modules.get().add(new Box());
+        Modules.get().add(new KillEffect());
 
         // Commands
         Commands.add(new Discord());

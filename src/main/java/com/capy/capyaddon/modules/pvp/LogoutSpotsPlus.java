@@ -1,7 +1,7 @@
 package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
-import com.capy.capyaddon.utils.LogUtils;
+import com.capy.capyaddon.utils.cLogUtils;
 import com.capy.capyaddon.utils.LogoutSpotsPlus.Entry;
 import com.capy.capyaddon.utils.LogoutSpotsPlus.GhostPlayer;
 import meteordevelopment.meteorclient.events.entity.EntityAddedEvent;
@@ -11,6 +11,7 @@ import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.meteorclient.utils.world.Dimension;
@@ -18,15 +19,14 @@ import meteordevelopment.orbit.EventHandler;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import com.capy.capyaddon.utils.cPlayerUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LogoutSpotsPlus extends Module {
+    public final cPlayerUtils cPlayerUtils = new cPlayerUtils();
     public final List<GhostPlayer> ghosts = new ArrayList<>();
     private final List<Entry> players = new ArrayList<>();
     private final List<PlayerListEntry> lastPlayerList = new ArrayList<>();
@@ -37,6 +37,7 @@ public class LogoutSpotsPlus extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgGhost = settings.createGroup("Ghost");
     private final SettingGroup sgRender = settings.createGroup("Render");
+    private final SettingGroup sgMisc = settings.createGroup("Misc");
     private final SettingGroup sgCompatibility = settings.createGroup("Compatibility");
 
     // General
@@ -126,12 +127,36 @@ public class LogoutSpotsPlus extends Module {
         .build()
     );
 
+    // Misc
+
+    public final Setting<Boolean> autoEzLog = sgMisc.add(new BoolSetting.Builder()
+        .name("auto-ez-log")
+        .description("send a message in chat saying ez log when someone logs out")
+        .defaultValue(false)
+        .build()
+    );
+
+    public final Setting<Boolean> autoEzLogIgnoreNakeds = sgMisc.add(new BoolSetting.Builder()
+        .name("ignore-nakeds")
+        .description("ignore naked people for the auto-ez-log setting")
+        .defaultValue(true)
+        .visible(autoEzLog::get)
+        .build()
+    );
+
+    public final Setting<String> autoEzLogString = sgMisc.add(new StringSetting.Builder()
+        .name("string")
+        .description("message to send")
+        .description("EZZZZ LOG")
+        .build()
+    );
+
     // Compatibility
 
     public final Setting<Boolean> popCounter = sgCompatibility.add(new BoolSetting.Builder()
         .name("pop-counter")
         .description("use compatibility with popcounter")
-        .defaultValue(true)
+        .defaultValue(false)
         .build()
     );
 
@@ -156,7 +181,7 @@ public class LogoutSpotsPlus extends Module {
 
             if (toRemove != -1) {
                 String suffix = (prefix.get() ? Formatting.DARK_RED + "[" + Formatting.RED + "!" + Formatting.DARK_RED + "]" + Formatting.RESET + " " : "");
-                if (logToChat.get()) LogUtils.sendMessage(suffix + player.getName().getString() + " logged back in. " + Formatting.GRAY + "[" + Formatting.GOLD + mc.player.distanceTo(player) + Formatting.GRAY + "]", stackMessages.get());
+                if (logToChat.get()) cLogUtils.sendMessage(suffix + player.getName().getString() + " logged back in. " + Formatting.GRAY + "[" + Formatting.GOLD + mc.player.distanceTo(player) + Formatting.GRAY + "]", stackMessages.get());
                 players.remove(toRemove);
             }
         }
@@ -174,14 +199,21 @@ public class LogoutSpotsPlus extends Module {
                 for (PlayerEntity player : lastPlayers) {
                     if (player.getUuid().equals(lastEntry.getProfile().getId())) {
                         String suffix = (prefix.get() ? Formatting.DARK_RED + "[" + Formatting.RED + "!" + Formatting.DARK_RED + "]" + Formatting.RESET + " " : "");
-                        if (logToChat.get()) LogUtils.sendMessage(suffix + player.getName().getString() + " logged out. " + Formatting.GRAY + "[" + Formatting.GOLD + mc.player.distanceTo(player) + Formatting.GRAY + "]", stackMessages.get());
+                        if (logToChat.get()) cLogUtils.sendMessage(suffix + player.getName().getString() + " logged out. " + Formatting.GRAY + "[" + Formatting.GOLD + mc.player.distanceTo(player) + Formatting.GRAY + "]", stackMessages.get());
+
                         if (popCounter.get()) {
                             PopCounter popCounter1 = new PopCounter();
                             synchronized (popCounter1.totemPopMap) {
                                 int pops = popCounter1.getPops(player.getUuid());
-                                if (logToChat.get()) LogUtils.sendMessage(suffix + player.getName().getString() + " logged out after popping " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
+                                if (logToChat.get()) cLogUtils.sendMessage(suffix + player.getName().getString() + " logged out after popping " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
                             }
                         }
+
+                        if (autoEzLog.get()) {
+                            if (autoEzLogIgnoreNakeds.get() && cPlayerUtils.isNaked(player)) return;
+                            ChatUtils.sendPlayerMsg(autoEzLogString.get());
+                        }
+
                         addEntry(new Entry(player, this));
                     }
                 }

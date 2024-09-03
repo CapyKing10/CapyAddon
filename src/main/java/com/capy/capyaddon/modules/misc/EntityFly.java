@@ -41,7 +41,7 @@ public class EntityFly extends Module {
     );
 
     public EntityFly() {
-        super(CapyAddon.MISC, "EntityFly", "fly with entites such as donkeys and horses!");
+        super(CapyAddon.MISC, "entity-fly", "fly with entites such as donkeys and horses!");
     }
 
     @EventHandler

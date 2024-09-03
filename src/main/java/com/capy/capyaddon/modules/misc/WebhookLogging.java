@@ -2,7 +2,7 @@ package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.utils.DiscordWebhook;
-import com.capy.capyaddon.utils.LogUtils;
+import com.capy.capyaddon.utils.cLogUtils;
 import meteordevelopment.meteorclient.events.entity.EntityAddedEvent;
 import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
 import meteordevelopment.meteorclient.events.game.ReceiveMessageEvent;
@@ -28,7 +28,7 @@ public class WebhookLogging extends Module {
     public SettingGroup sgOptions = settings.createGroup("Options");
 
     public WebhookLogging() {
-        super(CapyAddon.MISC, "WebhookLogger", "Log certaint things to a Discord webhook");
+        super(CapyAddon.MISC, "webhook-logger", "Log certaint things to a Discord webhook");
     }
 
     private final Setting<String> url = sgGeneral.add(new StringSetting.Builder()
@@ -75,7 +75,7 @@ public class WebhookLogging extends Module {
         if (!webhookURL.isEmpty()) {
             hook = new DiscordWebhook(webhookURL);
         } else {
-            LogUtils.sendMessage(Formatting.WHITE + "Invalid webhook URL...", true);
+            cLogUtils.sendMessage(Formatting.WHITE + "Invalid webhook URL...", true);
             this.toggle();
         }
     }

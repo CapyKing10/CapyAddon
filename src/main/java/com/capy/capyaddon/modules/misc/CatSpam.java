@@ -61,7 +61,7 @@ public class CatSpam extends Module {
     private int timer;
 
     public CatSpam() {
-        super(CapyAddon.MISC, "CatSpam", "Spam Cat in chat! ^v^");
+        super(CapyAddon.MISC, "cat-spam", "Spam Cat in chat! ^v^");
     }
 
     @Override
