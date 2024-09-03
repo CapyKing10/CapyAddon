@@ -2,7 +2,6 @@ package com.capy.capyaddon;
 
 import com.capy.capyaddon.commands.Discord;
 import com.capy.capyaddon.commands.GambleYourBase;
-import com.capy.capyaddon.commands.StatsCommand;
 import com.capy.capyaddon.hud.*;
 import com.capy.capyaddon.modules.misc.*;
 import com.capy.capyaddon.modules.pvp.*;
@@ -14,8 +13,6 @@ import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import org.slf4j.Logger;
-
-import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class CapyAddon extends MeteorAddon {
     public static final String NAME = "CapyAddon";
@@ -54,7 +51,6 @@ public class CapyAddon extends MeteorAddon {
         // Commands
         Commands.add(new Discord());
         Commands.add(new GambleYourBase());
-        Commands.add(new StatsCommand());
 
         // HUD
         Hud.get().register(fps.INFO);

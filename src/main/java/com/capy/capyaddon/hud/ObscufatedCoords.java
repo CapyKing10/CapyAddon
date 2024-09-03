@@ -41,9 +41,9 @@ public class ObscufatedCoords extends HudElement {
         PlayerEntity player = MinecraftClient.getInstance().player;
 
         if (player == null) return;
-        double spoofedX = Math.round(player.getX() * (Math.random() * multiplier.get()));
-        double spoofedY = Math.round(player.getY() * (Math.random() * multiplier.get()));
-        double spoofedZ = Math.round(player.getZ() * (Math.random() * multiplier.get()));
+        double spoofedX = Math.round((player.getX() * (Math.random() * multiplier.get() * Math.random())) * Math.random());
+        double spoofedY = Math.round((player.getY() * (Math.random() * multiplier.get() * Math.random())) * Math.random());
+        double spoofedZ = Math.round((player.getZ() * (Math.random() * multiplier.get() * Math.random())) * Math.random());
 
         String text = "x: " + spoofedX + " y: " + spoofedY + " z: " + spoofedZ;
         setSize(renderer.textWidth(text, shadow.get()), renderer.textHeight(shadow.get()));
