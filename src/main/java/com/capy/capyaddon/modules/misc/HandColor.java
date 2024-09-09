@@ -3,7 +3,11 @@ package com.capy.capyaddon.modules.misc;
 import com.capy.capyaddon.CapyAddon;
 import com.mojang.blaze3d.systems.RenderSystem;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
+import meteordevelopment.meteorclient.renderer.Shader;
+import meteordevelopment.meteorclient.renderer.ShaderMesh;
+import meteordevelopment.meteorclient.renderer.Shaders;
 import meteordevelopment.meteorclient.settings.ColorSetting;
+import meteordevelopment.meteorclient.settings.IntSetting;
 import meteordevelopment.meteorclient.settings.Setting;
 import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
@@ -50,5 +54,6 @@ public class HandColor extends Module {
             matrices.pop();
             RenderSystem.disableBlend();
         }
+
     }
 }

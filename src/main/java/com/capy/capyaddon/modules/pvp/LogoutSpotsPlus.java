@@ -37,7 +37,6 @@ public class LogoutSpotsPlus extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgGhost = settings.createGroup("Ghost");
     private final SettingGroup sgRender = settings.createGroup("Render");
-    private final SettingGroup sgMisc = settings.createGroup("Misc");
     private final SettingGroup sgCompatibility = settings.createGroup("Compatibility");
 
     // General
@@ -62,6 +61,13 @@ public class LogoutSpotsPlus extends Module {
         .description("Stack the messages so it doesn't spam your chat")
         .defaultValue(true)
         .visible(logToChat::get)
+        .build()
+    );
+
+    public final Setting<Boolean> ignoreNakeds = sgGeneral.add(new BoolSetting.Builder()
+        .name("ignore-nakeds")
+        .description("ignore people with no armor")
+        .defaultValue(true)
         .build()
     );
 
@@ -127,30 +133,6 @@ public class LogoutSpotsPlus extends Module {
         .build()
     );
 
-    // Misc
-
-    public final Setting<Boolean> autoEzLog = sgMisc.add(new BoolSetting.Builder()
-        .name("auto-ez-log")
-        .description("send a message in chat saying ez log when someone logs out")
-        .defaultValue(false)
-        .build()
-    );
-
-    public final Setting<Boolean> autoEzLogIgnoreNakeds = sgMisc.add(new BoolSetting.Builder()
-        .name("ignore-nakeds")
-        .description("ignore naked people for the auto-ez-log setting")
-        .defaultValue(true)
-        .visible(autoEzLog::get)
-        .build()
-    );
-
-    public final Setting<String> autoEzLogString = sgMisc.add(new StringSetting.Builder()
-        .name("string")
-        .description("message to send")
-        .description("EZZZZ LOG")
-        .build()
-    );
-
     // Compatibility
 
     public final Setting<Boolean> popCounter = sgCompatibility.add(new BoolSetting.Builder()
@@ -198,6 +180,8 @@ public class LogoutSpotsPlus extends Module {
             if (!stillOnline) {
                 for (PlayerEntity player : lastPlayers) {
                     if (player.getUuid().equals(lastEntry.getProfile().getId())) {
+                        if (cPlayerUtils.isNaked(player)) return;
+
                         String suffix = (prefix.get() ? Formatting.DARK_RED + "[" + Formatting.RED + "!" + Formatting.DARK_RED + "]" + Formatting.RESET + " " : "");
                         if (logToChat.get()) cLogUtils.sendMessage(suffix + player.getName().getString() + " logged out. " + Formatting.GRAY + "[" + Formatting.GOLD + mc.player.distanceTo(player) + Formatting.GRAY + "]", stackMessages.get());
 
@@ -207,11 +191,6 @@ public class LogoutSpotsPlus extends Module {
                                 int pops = popCounter1.getPops(player.getUuid());
                                 if (logToChat.get()) cLogUtils.sendMessage(suffix + player.getName().getString() + " logged out after popping " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
                             }
-                        }
-
-                        if (autoEzLog.get()) {
-                            if (autoEzLogIgnoreNakeds.get() && cPlayerUtils.isNaked(player)) return;
-                            ChatUtils.sendPlayerMsg(autoEzLogString.get());
                         }
 
                         addEntry(new Entry(player, this));

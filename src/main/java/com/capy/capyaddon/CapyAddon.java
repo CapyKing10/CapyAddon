@@ -8,6 +8,7 @@ import com.capy.capyaddon.modules.pvp.*;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
+import meteordevelopment.meteorclient.gui.GuiThemes;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
@@ -16,8 +17,8 @@ import org.slf4j.Logger;
 
 public class CapyAddon extends MeteorAddon {
     public static final String NAME = "CapyAddon";
-    public static final String VERSION = "1.0.4";
-    public static final String MC_VERSION = "1.21.1";
+    public static final String VERSION = "1.0.5";
+    public static final String MC_VERSION = "1.20.4";
 
     public static final Logger LOG = LogUtils.getLogger();
     public static final Category MISC = new Category("CapyAddon - MISC");
