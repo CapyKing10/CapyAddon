@@ -8,7 +8,6 @@ import com.capy.capyaddon.modules.pvp.*;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
-import meteordevelopment.meteorclient.gui.GuiThemes;
 import meteordevelopment.meteorclient.systems.hud.Hud;
 import meteordevelopment.meteorclient.systems.hud.HudGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
@@ -30,6 +29,7 @@ public class CapyAddon extends MeteorAddon {
         LOG.info("Initializing CapyAddon");
 
         // Modules
+        Modules.get().add(new TNTAuera());
         Modules.get().add(new Texturing());
         Modules.get().add(new WebhookLogging());
         Modules.get().add(new ShulkerDrop());
