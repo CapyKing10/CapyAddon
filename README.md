@@ -31,6 +31,8 @@ A utility meteor addon.
     - Logoutspots+
     - PopCounter
     - VisualRange
+    - TnTAuera
+    - BurrowESP
 - Commands:
     - Discord
     - Gamble Your Base
