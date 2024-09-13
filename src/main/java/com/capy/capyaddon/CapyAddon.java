@@ -48,6 +48,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new HandColor());
         Modules.get().add(new Box());
         Modules.get().add(new KillEffect());
+        Modules.get().add(new BurrowESP());
 
         // Commands
         Commands.add(new Discord());
