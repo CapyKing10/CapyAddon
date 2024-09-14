@@ -33,6 +33,7 @@ A utility meteor addon.
     - VisualRange
     - TnTAuera
     - BurrowESP
+    - HitBoxDesync
 - Commands:
     - Discord
     - Gamble Your Base
