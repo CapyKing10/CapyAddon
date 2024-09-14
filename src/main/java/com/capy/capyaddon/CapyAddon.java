@@ -29,7 +29,7 @@ public class CapyAddon extends MeteorAddon {
         LOG.info("Initializing CapyAddon");
 
         // Modules
-        Modules.get().add(new TNTAuera());
+        Modules.get().add(new TNTAura());
         Modules.get().add(new Texturing());
         Modules.get().add(new WebhookLogging());
         Modules.get().add(new ShulkerDrop());
@@ -49,6 +49,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new Box());
         Modules.get().add(new KillEffect());
         Modules.get().add(new BurrowESP());
+        Modules.get().add(new HitboxDesync());
 
         // Commands
         Commands.add(new Discord());

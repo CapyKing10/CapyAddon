@@ -61,7 +61,7 @@ public class Box extends Module {
             color.get(),
             color.get(),
             ShapeMode.Sides,
-            0 // Adjust as needed
+            0
         );
     }
 }

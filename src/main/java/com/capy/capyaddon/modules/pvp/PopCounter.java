@@ -1,6 +1,7 @@
 package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.event.TotemPopEvent;
 import com.capy.capyaddon.utils.cLogUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -30,7 +31,7 @@ public class PopCounter extends Module {
     private final Setting<Boolean> ignoreSelf = sgLog.add(new BoolSetting.Builder()
         .name("ignore-self")
         .description("Ignore yourself when popping")
-        .defaultValue(true)
+        .defaultValue(false)
         .build()
     );
 
@@ -48,6 +49,14 @@ public class PopCounter extends Module {
         .build()
     );
 
+    private final Setting<Boolean> stackMessagesPerPlayer = sgLog.add(new BoolSetting.Builder()
+        .name("stack-messages-per-player")
+        .description("stack the pop messages for each player")
+        .visible(stackMessages::get)
+        .defaultValue(true)
+        .build()
+    );
+
     public PopCounter() {
         super(CapyAddon.PVP, "PopCounter", "Counts the number of times you have popped someone's totem");
     }
@@ -58,22 +67,14 @@ public class PopCounter extends Module {
     }
 
     @EventHandler
-    private void onReceivePacket(PacketEvent.Receive event) {
-        if (!(event.packet instanceof EntityStatusS2CPacket p)) return;
-
-        if (p.getStatus() != 35) return;
-
-        Entity entity = p.getEntity(mc.world);
-
-        if (!(entity instanceof PlayerEntity)) return;
-
-        if ((entity.equals(mc.player) && ignoreSelf.get())) return;
+    private void onTotemPop(TotemPopEvent event) {
+        if ((event.getPlayer().equals(mc.player) && ignoreSelf.get())) return;
 
         synchronized (totemPopMap) {
-            int pops = getPops(entity.getUuid());
-            totemPopMap.put(entity.getUuid(), ++pops);
+            int pops = getPops(event.getPlayer().getUuid());
+            totemPopMap.put(event.getPlayer().getUuid(), ++pops);
 
-            cLogUtils.sendMessage(entity.getName().getString() + " popped " + Formatting.GOLD + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
+            cLogUtils.sendTotemPopMessage(pops, event.getPlayer(), stackMessages.get(), stackMessagesPerPlayer.get());
         }
     }
 

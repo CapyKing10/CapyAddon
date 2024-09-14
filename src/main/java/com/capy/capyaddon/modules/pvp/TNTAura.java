@@ -5,7 +5,6 @@ import meteordevelopment.meteorclient.events.entity.player.StartBreakingBlockEve
 import meteordevelopment.meteorclient.events.render.Render2DEvent;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
 import meteordevelopment.meteorclient.renderer.text.TextRenderer;
 import meteordevelopment.meteorclient.settings.*;
@@ -37,9 +36,7 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
-import static meteordevelopment.meteorclient.MeteorClient.mc;
-
-public class TNTAuera extends Module {
+public class TNTAura extends Module {
 
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
     private final SettingGroup sgAutoBreak = settings.createGroup("Auto-Break");
@@ -57,7 +54,7 @@ public class TNTAuera extends Module {
     private final Setting<Boolean> rotate = sgGeneral.add(new BoolSetting.Builder().name("rotate").description("Rotates towards blocks when interacting").defaultValue(false).build());
     //auto break
     private final Setting<Boolean> autoBreak = sgAutoBreak.add(new BoolSetting.Builder().name("auto-break").description("attemps to auto break").defaultValue(false).build());
-    public final Setting<TNTAuera.mineMode> breakMode = sgAutoBreak.add(new EnumSetting.Builder<TNTAuera.mineMode>().name("break-mode").defaultValue(mineMode.Normal).visible(() -> autoBreak.get()).build());
+    public final Setting<TNTAura.mineMode> breakMode = sgAutoBreak.add(new EnumSetting.Builder<TNTAura.mineMode>().name("break-mode").defaultValue(mineMode.Normal).visible(() -> autoBreak.get()).build());
     //pause
     private final Setting<Boolean> burrowPause = sgPause.add(new BoolSetting.Builder().name("pause-on-burrow").description("will pause if enemy is burrowed").defaultValue(true).build());
     private final Setting<Boolean> antiSelf = sgPause.add(new BoolSetting.Builder().name("anti-self").description("pause if enemy in your hole").defaultValue(true).build());
@@ -95,8 +92,8 @@ public class TNTAuera extends Module {
     private boolean rofl;
     private boolean toggled;
 
-    public TNTAuera() {
-        super(CapyAddon.PVP, "TNTAuera", "Blows the opps up with the t-a-tnt");
+    public TNTAura() {
+        super(CapyAddon.PVP, "TNT-aura", "Blows the opps up with the t-a-tnt");
     }
 
     @Override
@@ -379,8 +376,7 @@ public class TNTAuera extends Module {
         return 0;
     }
 
-            @Override
-            public String getInfoString() {
-                return "TnT: " + getTntcount() + ", " + EntityUtils.getName(target);
-            }
+    @Override public String getInfoString() {
+        return "TnT: " + getTntcount() + ", " + EntityUtils.getName(target);
+    }
 }

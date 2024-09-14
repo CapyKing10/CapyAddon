@@ -1,36 +1,23 @@
 package com.capy.capyaddon.modules.misc;
 
 import com.capy.capyaddon.CapyAddon;
-import meteordevelopment.meteorclient.events.entity.player.StartBreakingBlockEvent;
 import meteordevelopment.meteorclient.events.render.Render2DEvent;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
-import meteordevelopment.meteorclient.renderer.Renderer2D;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
 import meteordevelopment.meteorclient.renderer.text.TextRenderer;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
-import meteordevelopment.meteorclient.utils.entity.EntityUtils;
 import meteordevelopment.meteorclient.utils.entity.SortPriority;
 import meteordevelopment.meteorclient.utils.entity.TargetUtils;
-import meteordevelopment.meteorclient.utils.player.*;
 import meteordevelopment.meteorclient.utils.render.NametagUtils;
-import meteordevelopment.meteorclient.utils.render.color.Color;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
-import meteordevelopment.meteorclient.utils.world.BlockUtils;
 import meteordevelopment.orbit.EventHandler;
+import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.packet.c2s.play.HandSwingC2SPacket;
-import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
-import net.minecraft.util.Hand;
-import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import org.joml.Vector3d;
 
@@ -44,13 +31,22 @@ public class BurrowESP extends Module {
 
     private PlayerEntity target;
 
+    public final Setting<Boolean> ignoreSelf = sgGeneral.add(new BoolSetting.Builder().name("ignore-self").description("ignore your own burrows").defaultValue(true).build());
 
-    private final Setting<Integer> scale = sgGeneral.add(new IntSetting.Builder().name("scale").description("scale").defaultValue(4).build());
+    public final Setting<modes> mode = sgGeneral.add(new EnumSetting.Builder<modes>().name("render-mode").description("How the module should render").defaultValue(modes.shader).build());
+
+    // Text
+    private final Setting<Integer> scale = sgGeneral.add(new IntSetting.Builder().name("scale").description("scale").defaultValue(4).visible(() -> mode.get() == modes.text).build());
+    private final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder().name("line-color").description("The line color of the target block rendering.").defaultValue(new SettingColor(0, 0, 255, 190)).visible(() -> mode.get() == modes.text).build());
+
+    // Shader
+    public final Setting<ShapeMode> shapeMode = sgGeneral.add(new EnumSetting.Builder<ShapeMode>().name("shape-mode").description("How the shapes are rendered.").defaultValue(ShapeMode.Both).visible(() -> mode.get() == modes.shader).build());
+    public final Setting<SettingColor> sideColor = sgGeneral.add(new ColorSetting.Builder().name("side-color").description("The side color.").defaultValue(new SettingColor(255, 255, 255, 25)).visible(() -> mode.get() == modes.shader).build());
+    public final Setting<SettingColor> lineColor = sgGeneral.add(new ColorSetting.Builder().name("line-color").description("The line color.").defaultValue(new SettingColor(255, 255, 255, 127)).visible(() -> mode.get() == modes.shader).build());
 
     public BurrowESP() {
-        super(CapyAddon.MISC, "BurrowESP", "straigh outta old oyvey skids");
+        super(CapyAddon.MISC, "burrow-esp", "straigh outta old oyvey skids");
     }
-    private final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder().name("line-color").description("The line color of the target block rendering.").defaultValue(new SettingColor(0, 0, 255, 190)).build());
 
     private final List<BlockPos> obsidianPos = new ArrayList<>();
 
@@ -58,12 +54,14 @@ public class BurrowESP extends Module {
 
     @EventHandler
     public void onTick(TickEvent.Post event) {
-        // Find the target player
         target = TargetUtils.getPlayerTarget(100, SortPriority.LowestDistance);
+        if (target == mc.player && ignoreSelf.get()) target = null;
     }
 
     @EventHandler
-    public void on2DRender(Render2DEvent event) {
+    public void onRender2D(Render2DEvent event) {
+        if (mode.get() != modes.text) return;
+
         // Check if there's a valid target and if the target is burrowed
         if (target != null && isBurrowed(target)) {
             // Get the target's position
@@ -72,7 +70,6 @@ public class BurrowESP extends Module {
             // Adjust the position to display text at the feet of the burrowed target
             targetPos = targetPos.add(0, 1, 0);
 
-            // Convert the Vec3d to Vector3d
             Vector3d targetPos3D = new Vector3d(targetPos.x, targetPos.y, targetPos.z);
 
             // Convert the 3D position to 2D for rendering
@@ -98,9 +95,43 @@ public class BurrowESP extends Module {
         }
     }
 
+    @EventHandler
+    public void onRender3D(Render3DEvent event) {
+        if (mode.get() != modes.shader) return;
+        if (this.target == null || !isBurrowed(target)) return;
+        renderBox(event, target.getBlockPos(), sideColor.get(), lineColor.get());
+    }
+
+    public void renderBox(Render3DEvent event, BlockPos blockPos, SettingColor sideColor, SettingColor lineColor) {
+        double minX = blockPos.getX();
+        double minY = blockPos.getY();
+        double minZ = blockPos.getZ();
+
+        double maxX = minX + 1.0;
+        double maxY = minY + 1.0;
+        double maxZ = minZ + 1.0;
+
+        event.renderer.box(
+            minX, minY, minZ,
+            maxX, maxY, maxZ,
+            sideColor,
+            lineColor,
+            shapeMode.get(),
+            0
+        );
+    }
+
     private boolean isBurrowed(LivingEntity target) {
         assert mc.world != null;
 
-        return !mc.world.getBlockState(target.getBlockPos()).isAir();
+        if (!mc.world.getBlockState(target.getBlockPos()).isAir()) {
+            return true;
+        }
+        return false;
+    }
+
+    public enum modes {
+        text,
+        shader
     }
 }
