@@ -10,7 +10,7 @@
 
 # CapyAddon
 
-A utility meteor addon.
+A utility / pvp meteor addon.
 
 # Feature List:
 - Modules:
