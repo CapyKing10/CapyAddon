@@ -6,7 +6,7 @@
 
 [![Discord](https://img.shields.io/discord/1154497694597910620?style=for-the-badge&logo=discord&logoColor=%23ed9a3b&logoSize=%23ed9a3b&label=Discord&color=%23ed9a3b)](https://dsc.gg/capyking10)
 
-![Version](https://img.shields.io/badge/Version-1.21.1-ed9a3b?style=for-the-badge)
+![Version](https://img.shields.io/badge/Version-1.20.4-ed9a3b?style=for-the-badge)
 
 # CapyAddon
 
