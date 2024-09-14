@@ -50,6 +50,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new KillEffect());
         Modules.get().add(new BurrowESP());
         Modules.get().add(new HitboxDesync());
+        Modules.get().add(new ItemFrameSearch());
 
         // Commands
         Commands.add(new Discord());
