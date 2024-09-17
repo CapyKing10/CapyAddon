@@ -11,12 +11,6 @@ public class Settings {
     private static Settings INSTANCE;
 
     public static final SettingGroup sgCapyAddon = Config.get().settings.createGroup("CapyAddon");
-    public Setting<Boolean> cape = sgCapyAddon.add(new BoolSetting.Builder()
-        .name("cape")
-        .description("get a cape")
-        .defaultValue(true)
-        .build()
-    );
 
     public Setting<Boolean> windowName = sgCapyAddon.add(new BoolSetting.Builder()
         .name("window-name")

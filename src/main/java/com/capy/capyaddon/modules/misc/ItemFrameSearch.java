@@ -81,7 +81,7 @@ public class ItemFrameSearch extends Module {
             if (itemStack.isEmpty()) continue;
 
             if (!items.get().contains(itemStack.getItem())) continue;
-
+            
             if (showTracer.get()) event.renderer.line(RenderUtils.center.x, RenderUtils.center.y, RenderUtils.center.z, frame.getX(), frame.getY(), frame.getZ(), tracerColor.get());
             drawBoundingBox(event, frame);
         }
