@@ -34,8 +34,9 @@ public class cRenderUtils {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-
+/*
         BufferBuilder bufferBuilder = Tessellator.getInstance()
+        //.begin has an error could be my isuse
             .begin(VertexFormat.DrawMode.QUADS, VertexFormats.POSITION_COLOR);
         bufferBuilder.vertex(matrix.peek().getPositionMatrix(), x1, y2, 0.0F).color(g, h, j, f);
         bufferBuilder.vertex(matrix.peek().getPositionMatrix(), x2, y2, 0.0F).color(g, h, j, f);
@@ -46,4 +47,7 @@ public class cRenderUtils {
         RenderSystem.disableBlend();
     }
 
+ */
+
+    }
 }
