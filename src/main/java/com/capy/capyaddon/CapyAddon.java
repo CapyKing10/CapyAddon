@@ -28,12 +28,11 @@ public class CapyAddon extends MeteorAddon {
     @Override
     public void onInitialize() {
         LOG.info("Initializing CapyAddon " + VERSION);
-        if (User.isDev() || User.isBeta()){
-            Modules.get().add(new AntiPistonAura());
-        }
+
 
         // Modules
         Modules.get().add(new TNTAura());
+        Modules.get().add(new AntiPistonAura());
         Modules.get().add(new Texturing());
         Modules.get().add(new WebhookLogging());
         Modules.get().add(new ShulkerDrop());
