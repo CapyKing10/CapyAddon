@@ -5,6 +5,7 @@ import com.capy.capyaddon.commands.GambleYourBase;
 import com.capy.capyaddon.hud.*;
 import com.capy.capyaddon.modules.misc.*;
 import com.capy.capyaddon.modules.pvp.*;
+import com.capy.capyaddon.utils.User;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
@@ -16,7 +17,7 @@ import org.slf4j.Logger;
 
 public class CapyAddon extends MeteorAddon {
     public static final String NAME = "CapyAddon";
-    public static final String VERSION = "1.0.6";
+    public static final String VERSION = User.isDev() ? "1.0.6-beta-extern-1.0f.0AC+" : "1.0.6";
     public static final String MC_VERSION = "1.21.1";
 
     public static final Logger LOG = LogUtils.getLogger();
