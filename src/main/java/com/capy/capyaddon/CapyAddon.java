@@ -72,7 +72,7 @@ public class CapyAddon extends MeteorAddon {
         Hud.get().register(Welcomer.INFO);
         Hud.get().register(Direction.INFO);
         Hud.get().register(Position.INFO);
-        Hud.get().register(Nettspend.INFO);
+//        Hud.get().register(Nettspend.INFO);
 
         Settings.get();
     }
