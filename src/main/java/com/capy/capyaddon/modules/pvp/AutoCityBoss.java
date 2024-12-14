@@ -5,6 +5,7 @@
 
 package com.capy.capyaddon.modules.pvp;
 
+import com.capy.capyaddon.CapyAddon;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
 import meteordevelopment.meteorclient.renderer.ShapeMode;
@@ -138,7 +139,7 @@ public class AutoCityBoss extends Module {
     private float progress;
 
     public AutoCityBoss() {
-        super(Categories.Combat, "AutoCityBoss", "Automatically mine blocks next to someone's feet.");
+        super(CapyAddon.PVP, "AutoCityBoss", "Automatically mine blocks next to someone's feet.");
     }
 
     @Override
@@ -150,22 +151,23 @@ public class AutoCityBoss extends Module {
             return;
         }
 
-        targetPos = EntityUtils.getCityBlock(target);
-        if (targetPos == null || !isSupportedBlock(mc.world.getBlockState(targetPos).getBlock())) {
-            if (chatInfo.get()) error("Couldn't find a valid block, disabling.");
+        targetPos = com.capy.capyaddon.utils.EntityUtils.getCityBlock(target);
+        if (targetPos == null || PlayerUtils.squaredDistanceTo(targetPos) > Math.pow(breakRange.get(), 2)) {
+            if (chatInfo.get()) error("Couldn't find a good block, disabling.");
             toggle();
             return;
         }
 
-        if (PlayerUtils.squaredDistanceTo(targetPos) > Math.pow(breakRange.get(), 2)) {
-            if (chatInfo.get()) error("Target block is out of range, disabling.");
-            toggle();
-            return;
+        if (support.get()) {
+            BlockPos supportPos = targetPos.down();
+            if (!(PlayerUtils.squaredDistanceTo(supportPos) > Math.pow(placeRange.get(), 2))) {
+                BlockUtils.place(supportPos, InvUtils.findInHotbar(Items.OBSIDIAN), rotate.get(), 0, true);
+            }
         }
 
-        pick = InvUtils.find(itemStack -> itemStack.getItem() == Items.NETHERITE_PICKAXE); // Or the appropriate tool
+        pick = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
         if (!pick.isHotbar()) {
-            error("No tool found for breaking the block... disabling.");
+            error("No pickaxe found... disabling.");
             toggle();
             return;
         }
@@ -174,23 +176,29 @@ public class AutoCityBoss extends Module {
         mine(false);
     }
 
+    @Override
+    public void onDeactivate() {
+        target = null;
+        targetPos = null;
+    }
+
     @EventHandler
-    public void onTick(TickEvent.Pre event) {
+    private void onTick(TickEvent.Pre event) {
         if (TargetUtils.isBadTarget(target, targetRange.get())) {
             toggle();
             return;
         }
 
         if (PlayerUtils.squaredDistanceTo(targetPos) > Math.pow(breakRange.get(), 2)) {
-            if (chatInfo.get()) error("Target block is out of range, disabling.");
+            if (chatInfo.get()) error("Couldn't find a target, disabling.");
             toggle();
             return;
         }
 
         if (progress < 1.0f) {
-            pick = InvUtils.find(itemStack -> itemStack.getItem() == Items.NETHERITE_PICKAXE);
+            pick = InvUtils.find(itemStack -> itemStack.getItem() == Items.DIAMOND_PICKAXE || itemStack.getItem() == Items.NETHERITE_PICKAXE);
             if (!pick.isHotbar()) {
-                error("No tool found for breaking the block... disabling.");
+                error("No pickaxe found... disabling.");
                 toggle();
                 return;
             }
@@ -221,10 +229,6 @@ public class AutoCityBoss extends Module {
         if (targetPos == null || !renderBlock.get()) return;
         event.renderer.box(targetPos, sideColor.get(), lineColor.get(), shapeMode.get(), 0);
     }
-    private boolean isSupportedBlock(Block block) {
-        return block == Blocks.OBSIDIAN || block == Blocks.BEDROCK; // Add other blocks if needed
-    }
-
 
     @Override
     public String getInfoString() {
