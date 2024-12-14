@@ -59,6 +59,7 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new PacketMine());
         Modules.get().add(new AutoBurrow());
         Modules.get().add(new MaceKill());
+        Modules.get().add(new AutoCityBoss());
 
         // Commands
         Commands.add(new Discord());
