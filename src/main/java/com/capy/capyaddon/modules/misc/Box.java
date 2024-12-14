@@ -24,7 +24,7 @@ public class Box extends Module {
     );
 
     public Box() {
-        super(CapyAddon.MISC, "box", "live inside a box");
+        super(CapyAddon.MISC, "box", "roddy rich");
     }
 
     @EventHandler

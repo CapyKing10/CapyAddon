@@ -4,18 +4,12 @@ import com.capy.capyaddon.CapyAddon;
 import com.capy.capyaddon.mixin.IGameRenderer;
 import com.capy.capyaddon.utils.Shader.ShaderManager;
 import com.capy.capyaddon.utils.Shader.Utils;
-import com.mojang.blaze3d.systems.RenderSystem;
 import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.renderer.*;
 import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
-import meteordevelopment.meteorclient.utils.render.postprocess.EntityOutlineShader;
 import meteordevelopment.orbit.EventHandler;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 
 public class HandColor extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
