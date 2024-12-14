@@ -10,6 +10,7 @@ import meteordevelopment.meteorclient.settings.*;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.entity.SortPriority;
 import meteordevelopment.meteorclient.utils.entity.TargetUtils;
+import meteordevelopment.meteorclient.utils.player.ChatUtils;
 import meteordevelopment.meteorclient.utils.render.NametagUtils;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import meteordevelopment.orbit.EventHandler;
@@ -31,16 +32,19 @@ public class BurrowESP extends Module {
     private final SettingGroup sgGeneral = settings.getDefaultGroup();
 
     private PlayerEntity target;
+    public final Setting<Boolean> announceInChat = sgGeneral.add(new BoolSetting.Builder()
+        .name("announce-chat")
+        .description("Announce in chat when a player is burrowed.")
+        .defaultValue(false)
+        .build());
 
     public final Setting<Boolean> ignoreSelf = sgGeneral.add(new BoolSetting.Builder().name("ignore-self").description("ignore your own burrows").defaultValue(true).build());
 
     public final Setting<modes> mode = sgGeneral.add(new EnumSetting.Builder<modes>().name("render-mode").description("How the module should render").defaultValue(modes.shader).build());
 
-    // Text
     private final Setting<Integer> scale = sgGeneral.add(new IntSetting.Builder().name("scale").description("scale").defaultValue(4).visible(() -> mode.get() == modes.text).build());
     private final Setting<SettingColor> color = sgGeneral.add(new ColorSetting.Builder().name("line-color").description("The line color of the target block rendering.").defaultValue(new SettingColor(0, 0, 255, 190)).visible(() -> mode.get() == modes.text).build());
 
-    // Shader
     public final Setting<ShapeMode> shapeMode = sgGeneral.add(new EnumSetting.Builder<ShapeMode>().name("shape-mode").description("How the shapes are rendered.").defaultValue(ShapeMode.Both).visible(() -> mode.get() == modes.shader).build());
     public final Setting<SettingColor> sideColor = sgGeneral.add(new ColorSetting.Builder().name("side-color").description("The side color.").defaultValue(new SettingColor(255, 255, 255, 25)).visible(() -> mode.get() == modes.shader).build());
     public final Setting<SettingColor> lineColor = sgGeneral.add(new ColorSetting.Builder().name("line-color").description("The line color.").defaultValue(new SettingColor(255, 255, 255, 127)).visible(() -> mode.get() == modes.shader).build());
@@ -57,40 +61,26 @@ public class BurrowESP extends Module {
     public void onTick(TickEvent.Post event) {
         target = TargetUtils.getPlayerTarget(100, SortPriority.LowestDistance);
         if (target == mc.player && ignoreSelf.get()) target = null;
+
+        if (target != null && isBurrowed(target) && announceInChat.get()) {
+            ChatUtils.info(target.getName().getString() + " has burrowed!");
+        }
     }
 
     @EventHandler
     public void onRender2D(Render2DEvent event) {
         if (mode.get() != modes.text) return;
 
-        // Check if there's a valid target and if the target is burrowed
         if (target != null && isBurrowed(target)) {
-            // Get the target's position
             Vec3d targetPos = target.getPos();
-
-            // Adjust the position to display text at the feet of the burrowed target
             targetPos = targetPos.add(0, 1, 0);
-
             Vector3d targetPos3D = new Vector3d(targetPos.x, targetPos.y, targetPos.z);
-
-            // Convert the 3D position to 2D for rendering
             if (NametagUtils.to2D(targetPos3D, scale.get())) {
-                // Get the target's name to render
-                String burrow = "BURROW"; // Target entity related to TNT
-
-                // Begin the nametag rendering at the calculated position
+                String burrow = "BURROW";
                 NametagUtils.begin(targetPos3D);
-
-                // Set up the text renderer (scale, font smoothing, and rendering text)
                 TextRenderer.get().begin(1.0, false, true);
-
-                // Render the target's name at the center of the screen
                 TextRenderer.get().render(burrow, -TextRenderer.get().getWidth(burrow) / 2.0, 0.0, color.get()); // Red color for emphasis
-
-                // End text rendering
                 TextRenderer.get().end();
-
-                // End nametag rendering
                 NametagUtils.end();
             }
         }

@@ -63,10 +63,23 @@ public class HandColor extends Module {
 
     @EventHandler
     public void onRender3d(Render3DEvent event) {
+        if (mc.player == null || mc.world == null) return;
         ShaderManager.rendering = true;
         ShaderManager.HAND_OUTLINE.beginRender();
         ShaderManager.HAND_OUTLINE.vertexConsumerProvider.setColor(color.get().r, color.get().g, color.get().b, color.get().a);
-        Utils.applyShader(() -> ((IGameRenderer) mc.gameRenderer).irenderHand(mc.gameRenderer.getCamera(), event.tickDelta, event.matrices.peek().getPositionMatrix()));
+        RenderSystem.enableBlend();
+        Utils.applyShader(() -> {
+            MatrixStack matrices = event.matrices;
+            matrices.push();
+            matrices.multiply(mc.gameRenderer.getCamera().getRotation());
+            matrices.translate(0, 0, 0);
+            ((IGameRenderer) mc.gameRenderer).irenderHand(
+                mc.gameRenderer.getCamera(),
+                event.tickDelta,
+                matrices.peek().getPositionMatrix()
+            );
+            matrices.pop();
+        });
         ShaderManager.rendering = false;
     }
 }
