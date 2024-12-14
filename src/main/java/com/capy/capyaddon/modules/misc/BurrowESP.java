@@ -24,6 +24,7 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.capy.capyaddon.utils.cPlayerUtils.isBurrowed;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 public class BurrowESP extends Module {
@@ -119,15 +120,6 @@ public class BurrowESP extends Module {
             shapeMode.get(),
             0
         );
-    }
-
-    private boolean isBurrowed(LivingEntity target) {
-        assert mc.world != null;
-
-        if (!mc.world.getBlockState(target.getBlockPos()).isAir()) {
-            return true;
-        }
-        return false;
     }
 
     public enum modes {

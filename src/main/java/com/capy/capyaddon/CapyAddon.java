@@ -2,11 +2,15 @@ package com.capy.capyaddon;
 
 import com.capy.capyaddon.commands.Discord;
 import com.capy.capyaddon.commands.GambleYourBase;
+import com.capy.capyaddon.event.Events;
 import com.capy.capyaddon.hud.*;
 import com.capy.capyaddon.modules.misc.*;
+import com.capy.capyaddon.modules.misc.printer.Printer;
 import com.capy.capyaddon.modules.pvp.*;
+import com.capy.capyaddon.utils.Shader.ShaderManager;
 import com.capy.capyaddon.utils.User;
 import com.mojang.logging.LogUtils;
+import meteordevelopment.meteorclient.addons.GithubRepo;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
 import meteordevelopment.meteorclient.commands.Commands;
 import meteordevelopment.meteorclient.systems.hud.Hud;
@@ -29,6 +33,11 @@ public class CapyAddon extends MeteorAddon {
     public void onInitialize() {
         LOG.info("Initializing CapyAddon " + VERSION);
 
+<<<<<<< Updated upstream
+=======
+
+        ShaderManager.init();
+>>>>>>> Stashed changes
 
         // Modules
         Modules.get().add(new TNTAura());
@@ -43,7 +52,6 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new ClientPrefix());
         Modules.get().add(new PopCounter());
         Modules.get().add(new ArmorNotify());
-        Modules.get().add(new BackupCaller());
         Modules.get().add(new AntiPlayerSwing());
         Modules.get().add(new LogoutSpotsPlus());
         Modules.get().add(new VisualRange());
@@ -54,6 +62,10 @@ public class CapyAddon extends MeteorAddon {
         Modules.get().add(new BurrowESP());
         Modules.get().add(new HitboxDesync());
         Modules.get().add(new ItemFrameSearch());
+        Modules.get().add(new Printer());
+        Modules.get().add(new PacketMine());
+        Modules.get().add(new AutoBurrow());
+        Modules.get().add(new MaceKill());
 
         // Commands
         Commands.add(new Discord());
@@ -74,6 +86,16 @@ public class CapyAddon extends MeteorAddon {
     public void onRegisterCategories() {
         Modules.registerCategory(PVP);
         Modules.registerCategory(MISC);
+    }
+
+    @Override
+    public String getWebsite() {
+        return "https://github.com/CapyKing10/CapyAddon";
+    }
+
+    @Override
+    public GithubRepo getRepo() {
+        return new GithubRepo("CapyKing10", "CapyAddon");
     }
 
     @Override

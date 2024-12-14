@@ -1,8 +1,8 @@
 package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
-import com.capy.capyaddon.utils.Hole.Hole;
 import com.capy.capyaddon.utils.Hole.HoleUtils;
+import meteordevelopment.meteorclient.events.render.Render3DEvent;
 import meteordevelopment.meteorclient.settings.BoolSetting;
 import meteordevelopment.meteorclient.settings.EnumSetting;
 import meteordevelopment.meteorclient.settings.Setting;
@@ -10,6 +10,7 @@ import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.player.PlayerUtils;
+import meteordevelopment.meteorclient.utils.player.Rotations;
 import meteordevelopment.meteorclient.utils.world.BlockUtils;
 import meteordevelopment.orbit.EventHandler;
 import net.minecraft.block.BlockState;
@@ -21,7 +22,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import com.capy.capyaddon.utils.cPlaceBreakUtils;
-import net.minecraft.util.profiling.jfr.event.PacketReceivedEvent;
 
 /*
 
@@ -32,13 +32,6 @@ import net.minecraft.util.profiling.jfr.event.PacketReceivedEvent;
 
 public class AntiPistonPush extends Module {
     SettingGroup sgGeneral = settings.getDefaultGroup();
-
-    public final Setting<modes> mode = sgGeneral.add(new EnumSetting.Builder<modes>()
-        .name("mode")
-        .description("In what way to prevent getting pushed.")
-        .defaultValue(modes.Block)
-        .build()
-    );
 
     public final Setting<Boolean> rotate = sgGeneral.add(new BoolSetting.Builder()
         .name("rotate")
@@ -75,35 +68,34 @@ public class AntiPistonPush extends Module {
     }
 
     @EventHandler
-    public void onPacket(PacketReceivedEvent event) {
+    public void onRender3d(Render3DEvent event) {
         if (mc.player == null || mc.world == null) return;
-        BlockPos pos = mc.player.getBlockPos();
-        Hole hole = HoleUtils.getHole(pos, true,true, true, 3, true);
 
-        if (!inHole(hole) && onlyinhole.get()) {
+        if (!inHole() && onlyinhole.get()) {
             return;
         }
 
-        if (mode.get() == modes.Block) {
-            int bestslot;
-            bestslot = InvUtils.findInHotbar(Items.OBSIDIAN).slot();
-            placelocation = null;
-            placelocation = getplacelocation();
+        int bestslot;
+        bestslot = InvUtils.findInHotbar(Items.OBSIDIAN).slot();
+        placelocation = null;
+        placelocation = getplacelocation();
 
-            if (placelocation == null || bestslot == -1) {
-                return;
-            }
+        if (placelocation == null || bestslot == -1) {
+            return;
+        }
 
-            float[] rotation = null;
-            if (rotate.get()) {
-                rotation = PlayerUtils.calculateAngle(placelocation.toCenterPos());
-            }
+        float[] rotation = null;
+        if (rotate.get()) {
+            rotation = PlayerUtils.calculateAngle(placelocation.toCenterPos());
+            Rotations.rotate(rotation[0], rotation[1]);
+        }
 
-            if (BlockUtils.canPlace(placelocation) && mc.player.getPose() == EntityPose.STANDING) {
-                InvUtils.swap(bestslot, true);
-                cPlaceBreakUtils.placeBlock(Hand.MAIN_HAND, placelocation.toCenterPos(), BlockUtils.getDirection(placelocation), placelocation, bestslot, swing.get());
-                InvUtils.swapBack();
-            }
+        if (BlockUtils.canPlace(placelocation) && mc.player.getPose() == EntityPose.STANDING) {
+            // swap and place block
+
+            InvUtils.swap(bestslot, true);
+            cPlaceBreakUtils.placeBlock(Hand.MAIN_HAND, placelocation.toCenterPos(), BlockUtils.getDirection(placelocation), placelocation, bestslot, swing.get());
+            InvUtils.swapBack();
         }
     }
 
@@ -190,21 +182,12 @@ public class AntiPistonPush extends Module {
             isPowerSource(pos.down());
     }
 
-    private boolean inHole(Hole hole) {
-        for (BlockPos pos : hole.positions) {
-            if (mc.player.getBlockPos().equals(pos)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean inHole() {
+        return HoleUtils.inHole(mc.player);
     }
 
     public boolean isSolidBlock(BlockPos pos) {
         BlockState blockState = mc.world.getBlockState(pos);
         return blockState.isSolidBlock(mc.world, pos);
-    }
-
-    private enum modes {
-        Block,
     }
 }

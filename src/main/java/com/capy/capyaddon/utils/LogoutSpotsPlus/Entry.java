@@ -34,7 +34,7 @@ public class Entry {
 
     public Entry(PlayerEntity entity, LogoutSpotsPlus module) {
         this.p = entity;
-        this.LSP = module;  // Pass the correct instance
+        this.LSP = module;
 
         halfWidth = entity.getWidth() / 2;
         x = entity.getX() - halfWidth;
@@ -74,22 +74,18 @@ public class Entry {
 
         NametagUtils.begin(pos);
 
-        // Compute health things
         double healthPercentage = (double) health / maxHealth;
 
-        // Get health color
         Color healthColor;
         if (healthPercentage <= 0.333) healthColor = Color.RED;
         else if (healthPercentage <= 0.666) healthColor = Color.ORANGE;
         else healthColor = Color.GREEN;
 
-        // Render background
         double i = text.getWidth(name) / 2.0 + text.getWidth(healthText) / 2.0 + (LSP.distance.get() ? text.getWidth(distanceText) / 2.0 : 0);
         Renderer2D.COLOR.begin();
         Renderer2D.COLOR.quad(-i, 0, i * 2, text.getHeight(), LSP.nameBackgroundColor.get());
         Renderer2D.COLOR.render(null);
 
-        // Render name and health texts
         text.beginBig();
         double aX = text.render(name, -i, 0, LSP.nameColor.get());
         double bX = text.render(healthText, aX, 0, healthColor);

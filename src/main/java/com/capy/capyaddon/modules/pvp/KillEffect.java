@@ -1,6 +1,7 @@
 package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.event.PlayerDeathEvent;
 import com.capy.capyaddon.utils.LogoutSpotsPlus.Entry;
 import meteordevelopment.meteorclient.events.entity.EntityRemovedEvent;
 import meteordevelopment.meteorclient.events.world.TickEvent;
@@ -39,14 +40,10 @@ public class KillEffect extends Module {
     }
 
     @EventHandler
-    public void onTick(TickEvent.Post event) {
-        for (PlayerEntity player : mc.world.getPlayers()) {
-            if (player.deathTime > 0 || player.getHealth() <= 0) {
-                if (!players.contains(player)) {
-                    summonLightning(player.getBlockPos());
-                    players.add(player);
-                }
-            }
+    public void onPlayerDeath(PlayerDeathEvent event) {
+        if (!players.contains(event.getPlayer())) {
+            summonLightning(event.getPlayer().getBlockPos());
+            players.add(event.getPlayer());
         }
     }
 

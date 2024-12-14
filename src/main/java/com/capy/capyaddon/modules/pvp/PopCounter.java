@@ -1,6 +1,8 @@
 package com.capy.capyaddon.modules.pvp;
 
 import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.event.ClientPlayerDeathEvent;
+import com.capy.capyaddon.event.PlayerDeathEvent;
 import com.capy.capyaddon.event.TotemPopEvent;
 import com.capy.capyaddon.utils.cLogUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -79,28 +81,20 @@ public class PopCounter extends Module {
     }
 
     @EventHandler
-    private void onTick(TickEvent.Post event) {
+    private void onPlayerDeath(PlayerDeathEvent event) {
         synchronized (totemPopMap) {
-            for (PlayerEntity player : mc.world.getPlayers()) {
-                if (!totemPopMap.containsKey(player.getUuid())) continue;
+            if (!totemPopMap.containsKey(event.getPlayer().getUuid())) return;
 
-                if (player.deathTime > 0 || player.getHealth() <= 0) {
-                    int pops = totemPopMap.removeInt(player.getUuid());
+            int pops = totemPopMap.removeInt(event.getPlayer().getUuid());
 
-                    cLogUtils.sendMessage(player.getName().getString() + " died after popping " + Formatting.YELLOW + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
-                }
-            }
+            cLogUtils.sendMessage(event.getPlayer().getName().getString() + " died after popping " + Formatting.YELLOW + Formatting.BOLD + pops + Formatting.RESET + (pops == 1 ? " totem" : " totems"), stackMessages.get());
         }
     }
 
     @EventHandler
-    private void onOpenScreen(OpenScreenEvent event) {
-        assert mc.player != null;
-
-        if (event.screen instanceof DeathScreen) {
-            if (resetPopsOnDeath.get()) {
-                totemPopMap.clear();
-            }
+    private void onClientPlayerDeath(ClientPlayerDeathEvent event) {
+        if (resetPopsOnDeath.get()) {
+            totemPopMap.clear();
         }
     }
 
