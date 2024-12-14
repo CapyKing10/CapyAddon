@@ -33,12 +33,6 @@ public class CapyAddon extends MeteorAddon {
     public void onInitialize() {
         LOG.info("Initializing CapyAddon " + VERSION);
 
-<<<<<<< Updated upstream
-=======
-
-        ShaderManager.init();
->>>>>>> Stashed changes
-
         // Modules
         Modules.get().add(new TNTAura());
         Modules.get().add(new AntiPistonAura());

@@ -17,18 +17,8 @@ public class User {
             for (NetworkInterface ni : interfaces) {
                 byte[] mac = ni.getHardwareAddress();
                 if (mac != null) {
-<<<<<<< Updated upstream
                     for (byte macByte : mac) {
                         sb.append(String.format("%02X", macByte));
-=======
-<<<<<<< HEAD
-                    for (byte b : mac) {
-                        sb.append(String.format("%02X", b));
-=======
-                    for (byte macByte : mac) {
-                        sb.append(String.format("%02X", macByte));
->>>>>>> cdf6fb93327881b64c546e2c872054d7ab932fd3
->>>>>>> Stashed changes
                     }
                 }
             }
