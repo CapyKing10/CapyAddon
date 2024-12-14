@@ -44,6 +44,12 @@ public class VisualRange extends Module {
         .defaultValue(true)
         .build()
     );
+    private final Setting<Boolean> bussin = sgGeneral.add(new BoolSetting.Builder()
+        .name("bussin")
+        .description("bussin way")
+        .defaultValue(false)
+        .build()
+    );
 
     public VisualRange() {
         super(CapyAddon.PVP, "VisualRange", "notifies you when someone enters you visual range");
@@ -56,7 +62,11 @@ public class VisualRange extends Module {
                 if ((!visualRangeIgnoreFriends.get() || !Friends.get().isFriend(((PlayerEntity) event.entity))) && (!visualRangeIgnoreFakes.get() || !(event.entity instanceof FakePlayerEntity))) {
                     String prefixMsg = (prefix.get() ? Formatting.DARK_GREEN + "[" + Formatting.GREEN + "+" + Formatting.DARK_GREEN + "]" + Formatting.RESET + " " : "");
                     cLogUtils.sendMessage(prefixMsg + event.entity.getName().getString() + Formatting.GRAY + " entered your visual range.", true);
-
+                }
+                else {
+                    if (bussin.get()){
+                        cLogUtils.sendMessage(Formatting.GREEN + event.entity.getName().getString(), true);
+                    }
                     if (visualMakeSound.get())
                         mc.world.playSoundFromEntity(mc.player, mc.player, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.AMBIENT, 3.0F, 1.0F);
                 }
@@ -71,7 +81,11 @@ public class VisualRange extends Module {
                 if ((!visualRangeIgnoreFriends.get() || !Friends.get().isFriend(((PlayerEntity) event.entity))) && (!visualRangeIgnoreFakes.get() || !(event.entity instanceof FakePlayerEntity))) {
                     String prefixMsg = (prefix.get() ? Formatting.DARK_RED + "[" + Formatting.RED + "-" + Formatting.DARK_RED + "]" + Formatting.RESET + " " : "");
                     cLogUtils.sendMessage(prefixMsg + event.entity.getName().getString() + Formatting.GRAY + " left your visual range.", true);
-
+                }
+                else {
+                    if (bussin.get()){
+                        cLogUtils.sendMessage(Formatting.RED + event.entity.getName().getString(), true);
+                    }
                     if (visualMakeSound.get()) mc.world.playSoundFromEntity(mc.player, mc.player, SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, SoundCategory.AMBIENT, 3.0F, 1.0F);
                 }
             }

@@ -35,7 +35,6 @@ public class CapyAddon extends MeteorAddon {
 
         // Modules
         Modules.get().add(new TNTAura());
-        Modules.get().add(new AntiPistonAura());
         Modules.get().add(new Texturing());
         Modules.get().add(new WebhookLogging());
         Modules.get().add(new ShulkerDrop());
@@ -72,6 +71,7 @@ public class CapyAddon extends MeteorAddon {
         Hud.get().register(Welcomer.INFO);
         Hud.get().register(Direction.INFO);
         Hud.get().register(Position.INFO);
+        Hud.get().register(Nettspend.INFO);
 
         Settings.get();
     }
