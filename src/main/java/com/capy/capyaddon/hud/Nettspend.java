@@ -38,7 +38,7 @@ public class Nettspend extends HudElement {
     );
 
     private final Identifier drank = Identifier.of("capyaddon", "drank.png");
-    private final Identifier Hair = Identifier.of("capyaddon", "Hair.png");
+    private final Identifier Hair = Identifier.of("capyaddon", "hair.png");
     private final Identifier nugget = Identifier.of("capyaddon", "nugget.png");
     private final Identifier smoke = Identifier.of("capyaddon", "smoke.png");
 

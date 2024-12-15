@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static meteordevelopment.meteorclient.MeteorClient.mc;
 
 @Mixin(MinecraftClient.class)
-public class MinecraftWindowNameMixin {
+public class  MinecraftWindowNameMixin {
     @Inject(method = "render", at = @At("HEAD"))
     private void onRender(CallbackInfo ci) {
         Settings settings = Settings.get();
