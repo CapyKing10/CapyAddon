@@ -11,36 +11,3 @@
 # CapyAddon
 
 A utility / pvp meteor addon.
-
-# Feature List:
-- Modules:
-    - Anti Player Swing
-    - Auto Vertical
-    - Backup Caller
-    - Box
-    - Cat Spam
-    - Chunk Dupe Timer
-    - Entity Fly
-    - Hand Color
-    - Prefix Modifier
-    - Shulker Drop
-    - Texturing
-    - Webhook Logger
-    - Anti PistonPush
-    - Kill Effect
-    - Logoutspots+
-    - PopCounter
-    - VisualRange
-    - TnTAuera
-    - BurrowESP
-    - HitBoxDesync
-- Commands:
-    - Discord
-    - Gamble Your Base
-- Hud:
-    - Direction
-    - Position
-    - Fps
-    - Obscufated Coordinates
-    - Watermark
-    - Welcomer
