@@ -27,7 +27,7 @@ public class ShulkerDrop extends Module {
     }
 
     private boolean isShulker(ItemStack itemStack) {
-        String translationKey = itemStack.getTranslationKey();
+        String translationKey = itemStack.toString();
         return translationKey.contains("shulker_box");
     }
 }

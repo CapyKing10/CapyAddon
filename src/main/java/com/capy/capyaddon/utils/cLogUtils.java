@@ -31,7 +31,8 @@ public class cLogUtils {
         if (stack) {
             id = 93;
         } else {
-            id = (int) (System.currentTimeMillis() % Integer.MAX_VALUE); // unique id
+            mc.inGameHud.getChatHud().addMessage(message);
+            return;
         }
 
         if (!Config.get().deleteChatFeedback.get()) id = 0;
@@ -73,7 +74,7 @@ public class cLogUtils {
 
     public static Text getPrefix() {
         MutableText prefix = Text.literal("");
-        if (settings.useThemeColoForPrefix.get()) {
+        if (settings.useThemeColorForPrefix.get()) {
             SettingColor cS = settings.themeColor.get();
             SettingColor bC = settings.bracketsColor.get();
             MutableText name = Text.literal("CapyAddon");

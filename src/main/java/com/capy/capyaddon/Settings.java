@@ -33,7 +33,7 @@ public class Settings {
         .build()
     );
 
-    public Setting<Boolean> useThemeColoForPrefix = sgCapyAddon.add(new BoolSetting.Builder()
+    public Setting<Boolean> useThemeColorForPrefix = sgCapyAddon.add(new BoolSetting.Builder()
         .name("use-theme-for-prefix")
         .description("read the name")
         .defaultValue(true)
@@ -44,7 +44,7 @@ public class Settings {
         .name("use-brackets-color")
         .description("read the name")
         .defaultValue(true)
-        .visible(useThemeColoForPrefix::get)
+        .visible(useThemeColorForPrefix::get)
         .build()
     );
 

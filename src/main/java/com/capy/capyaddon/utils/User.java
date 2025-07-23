@@ -54,6 +54,6 @@ public class User {
     }
 
     public static boolean isBeta() {
-        return false; // Placeholder return value
+        return false;
     }
 }

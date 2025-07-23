@@ -111,17 +111,15 @@ public class MyUtils {
 
     private static void place(BlockHitResult blockHitResult, boolean swing) {
         if (mc.player == null || mc.interactionManager == null || mc.getNetworkHandler() == null) return;
-        boolean wasSneaking = mc.player.input.sneaking;
-        mc.player.input.sneaking = false;
+        boolean wasSneaking = mc.player.isSneaking();
+        mc.player.setSneaking(false);
 
         ActionResult result = mc.interactionManager.interactBlock(mc.player, Hand.MAIN_HAND, blockHitResult);
 
-        if (result.shouldSwingHand()) {
-            if (swing) mc.player.swingHand(Hand.MAIN_HAND);
-            else mc.getNetworkHandler().sendPacket(new HandSwingC2SPacket(Hand.MAIN_HAND));
-        }
+        if (swing) mc.player.swingHand(Hand.MAIN_HAND);
+        else mc.getNetworkHandler().sendPacket(new HandSwingC2SPacket(Hand.MAIN_HAND));
 
-        mc.player.input.sneaking = wasSneaking;
+        mc.player.setSneaking(wasSneaking);
     }
 
     public static boolean isBlockNormalCube(BlockState state) {

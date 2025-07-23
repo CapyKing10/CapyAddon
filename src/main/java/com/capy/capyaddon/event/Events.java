@@ -1,5 +1,7 @@
 package com.capy.capyaddon.event;
 
+import com.capy.capyaddon.CapyAddon;
+import com.capy.capyaddon.Settings;
 import meteordevelopment.meteorclient.MeteorClient;
 import meteordevelopment.meteorclient.events.game.OpenScreenEvent;
 import meteordevelopment.meteorclient.events.packets.PacketEvent;
@@ -40,6 +42,9 @@ public class Events {
 
     @EventHandler
     private void onTick(TickEvent.Post event) {
+        Settings settings = Settings.get();
+        if (settings.windowName.get()) mc.getWindow().setTitle("Minecraft*. [" + CapyAddon.NAME + " " + CapyAddon.VERSION + "]");
+
         for (PlayerEntity player : mc.world.getPlayers()) {
             if (player.deathTime > 0 || player.getHealth() <= 0) {
                 EVENT_BUS.post(PlayerDeathEvent.get(player));

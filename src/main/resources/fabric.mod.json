@@ -20,6 +20,7 @@
   "mixins": [
     "capyaddon.mixins.json"
   ],
+  "accessWidener": "capyaddon.accesswidener",
   "custom": {
     "meteor-client:color": "225,200,25"
   },
